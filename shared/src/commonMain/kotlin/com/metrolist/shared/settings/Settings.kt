@@ -388,9 +388,9 @@ class Settings(
 
     val isPlayerCastButtonVisible: Boolean
         get() = castEnabled && showPlayerCastButton
-    var playerBackgroundStyle by preference(PlayerBackgroundStyle.SOLID)
-    var sliderStyle by preference(SliderStyle.DEFAULT)
-    var sliderTrackThicknessDp by preference(SliderTrackThicknessDpKey, 5f)
+    var playerBackgroundStyle by preference(PlayerBackgroundStyle.BLURRED_ARTWORK)
+    var sliderStyle by preference(SliderStyle.SLIM)
+    var sliderTrackThicknessDp by preference(SliderTrackThicknessDpKey, 4f)
     var playbackSpeed by preference(PlaybackSpeedKey, 1f)
     var playbackPitch by preference(PlaybackPitchKey, 1f)
     private var tempoPitchPresetsJson by preference(TempoPitchPresetsJsonKey, "[]")
@@ -427,8 +427,8 @@ class Settings(
     var isExpanded by preference(false)
     var densityScaleFactor by preference(DensityScaleKey, 1f)
     var enableLandscapeScaling by preference(EnableLandscapeScalingKey, false)
-    var forceBottomNavBar by preference(ForceBottomNavBarKey, false)
-    var slimNavBar by preference(SlimNavBarKey, false)
+    var forceBottomNavBar by preference(ForceBottomNavBarKey, true)
+    var slimNavBar by preference(SlimNavBarKey, true)
     var floatingNavBar by preference(FloatingNavBarKey, false)
     var floatingTopBar by preference(FloatingTopBarKey, false)
     var floatingSearch by preference(false)

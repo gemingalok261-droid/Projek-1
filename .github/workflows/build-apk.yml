@@ -74,12 +74,16 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release delete v1.0.0 --yes 2>/dev/null || true
-          gh release create v1.0.0 dist/*.apk \
-            --title "Projek 1 v1.0.0" \
-            --notes "### Projek 1 - YouTube Music Client (Apple Music Style)
+          gh release delete v1.1.0 --yes 2>/dev/null || true
+          git tag -d v1.1.0 2>/dev/null || true
+          gh release create v1.1.0 dist/*.apk \
+            --title "Projek 1 v1.1.0 (Apple Music UI)" \
+            --notes "### Projek 1 v1.1.0 - Apple Music Redesign
 
-          Fitur dan pembaruan:
-          - **Nama Aplikasi**: Projek 1
-          - **Styling UI**: Terinspirasi dari Apple Music (Aksen Red/Pink #FA243C dan Pure OLED Black)
-          - **File APK**: Download file **Projek-1.apk** langsung dari bagian Assets di bawah!"
+          Fitur dan pembaruan layout player:
+          - **Player Overhaul**: Rombak total tombol playback dengan desain circular minimalis khas Apple Music.
+          - **Volume Slider**: Menambahkan slider volume langsung di bawah kontrol pemutar lagu.
+          - **Album Art 24dp**: Sudut cover album membulat halus khas kartu Apple Music.
+          - **Blurred Artwork Background**: Latar belakang pemutar blur dinamis otomatis aktif.
+          - **Slim Scrubber**: Bar progress lagu ramping dan elegan.
+          - **File APK**: Download file **Projek-1.apk** langsung di bawah!"

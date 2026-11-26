@@ -2272,7 +2272,7 @@ fun PlayerScreen(
                                                             hapticManager.perform(HapticEvent.PRESS)
                                                             viewModel.next()
                                                         },
-                                                        showLabels = true,
+                                                        showLabels = false,
                                                         sideButtonContainerColor = sideButtonContainerColor,
                                                         sideButtonContentColor = sideButtonContentColor,
                                                         useRoundedRect = Settings.shared.useRoundedRectPlayButton,
@@ -2280,6 +2280,8 @@ fun PlayerScreen(
                                                         buttonHeight = primaryControlSize,
                                                         playPauseFocusRequester = playPauseFocusRequester,
                                                     )
+                                                    Spacer(modifier = Modifier.height(16.dp))
+                                                    PlayerVolumeControl()
                                                 }
                                             }
                                         }

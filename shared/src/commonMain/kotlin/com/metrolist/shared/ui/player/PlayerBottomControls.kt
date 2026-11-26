@@ -294,15 +294,26 @@ internal fun PlayerVolumeControl() {
     sliderState.value = volume
     val volumeDescription = stringResource(Res.string.volume)
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        Icon(MetrolistIcons.AutoMirrored.Filled.VolumeUp, contentDescription = null)
+        Icon(
+            MetrolistIcons.AutoMirrored.Filled.VolumeOff,
+            contentDescription = null,
+            modifier = Modifier.size(16.dp),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+        )
         Slider(
             state = sliderState,
             onValueChange = playerConnection::setVolume,
             modifier = Modifier.retainPlaybackKeyFocus().weight(1f).semantics { contentDescription = volumeDescription },
+        )
+        Icon(
+            MetrolistIcons.AutoMirrored.Filled.VolumeUp,
+            contentDescription = null,
+            modifier = Modifier.size(16.dp),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
         )
     }
 }

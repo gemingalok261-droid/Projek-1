@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.ButtonDefaults
@@ -158,123 +159,80 @@ fun PlayerPrimaryControls(
     val isNextPressed by nextInteractionSource.collectIsPressedAsState()
     val isPlayPausePressed by playPauseInteractionSource.collectIsPressedAsState()
 
-    val compactFactor = if (buttonHeight < 48.dp) 0.55f else 1f
-    val playPauseWeight by animateFloatAsState(
-        targetValue =
-            (
-                if (isPlayPausePressed) {
-                    2.2f
-                } else if (isPrevPressed || isNextPressed) {
-                    1.3f
-                } else {
-                    1.9f
-                }
-            ) * compactFactor,
+    val prevScale by animateFloatAsState(
+        targetValue = if (isPrevPressed) 0.86f else 1f,
         animationSpec = spring(dampingRatio = 0.6f, stiffness = 500f),
-        label = "playPauseWeight",
+        label = "prevScale",
     )
-    val backButtonWeight by animateFloatAsState(
-        targetValue =
-            if (isPrevPressed) {
-                0.9f
-            } else if (isPlayPausePressed) {
-                0.4f
-            } else if (isNextPressed) {
-                0.5f
-            } else {
-                0.6f
-            },
+    val nextScale by animateFloatAsState(
+        targetValue = if (isNextPressed) 0.86f else 1f,
         animationSpec = spring(dampingRatio = 0.6f, stiffness = 500f),
-        label = "backButtonWeight",
+        label = "nextScale",
     )
-    val nextButtonWeight by animateFloatAsState(
-        targetValue =
-            if (isNextPressed) {
-                0.9f
-            } else if (isPlayPausePressed) {
-                0.4f
-            } else if (isPrevPressed) {
-                0.5f
-            } else {
-                0.6f
-            },
+    val playPauseScale by animateFloatAsState(
+        targetValue = if (isPlayPausePressed) 0.90f else 1f,
         animationSpec = spring(dampingRatio = 0.6f, stiffness = 500f),
-        label = "nextButtonWeight",
+        label = "playPauseScale",
     )
 
-    val effectiveSideButtonHeight = sideButtonHeight ?: buttonHeight
     val isCompact = buttonHeight < 52.dp
-    val minPlayWidth =
-        if (buttonHeight < 40.dp) {
-            44.dp
-        } else if (buttonHeight < 48.dp) {
-            80.dp
-        } else if (isCompact) {
-            100.dp
-        } else {
-            160.dp
-        }
-    val sideShape = RoundedCornerShape(effectiveSideButtonHeight / 2)
-    val playShape =
-        if (useRoundedRect) {
-            RoundedCornerShape(16.dp)
-        } else if (isCompact) {
-            if (isPlaying) RoundedCornerShape(14.dp) else RoundedCornerShape(28.dp)
-        } else {
-            if (isPlaying) RoundedCornerShape(20.dp) else RoundedCornerShape(48.dp)
-        }
-    val iconSize = if (isCompact) 20.dp else 24.dp
+    val playButtonSize = if (isCompact) 56.dp else 76.dp
+    val sideButtonSize = if (isCompact) 44.dp else 56.dp
+    val playIconSize = if (isCompact) 32.dp else 44.dp
+    val sideIconSize = if (isCompact) 26.dp else 34.dp
     val loadingText = stringResource(Res.string.loading)
 
     Row(
-        modifier = modifier.wrapContentWidth(Alignment.CenterHorizontally),
+        modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.spacedBy(if (isCompact) 28.dp else 40.dp, Alignment.CenterHorizontally),
     ) {
-        FilledTonalButton(
-            onClick = { onSkipPrevious?.invoke() },
+        Surface(
+            onClick = {
+                haptics.perform(HapticEvent.PRESS)
+                onSkipPrevious?.invoke()
+            },
             enabled = onSkipPrevious != null,
-            shapes = ButtonDefaults.shapes(shape = sideShape),
+            shape = CircleShape,
+            color = Color.White.copy(alpha = 0.08f),
+            contentColor = MaterialTheme.colorScheme.onSurface,
             interactionSource = prevInteractionSource,
-            colors =
-                ButtonDefaults.filledTonalButtonColors(
-                    containerColor = sideButtonContainerColor.copy(alpha = 0.8f),
-                    contentColor = sideButtonContentColor,
-                ),
-            contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp),
             modifier =
                 Modifier
-                    .height(effectiveSideButtonHeight)
-                    .pointerHoverIcon(PointerIcon.Hand)
-                    .weight(backButtonWeight)
-                    .tvFocusHighlight(sideShape, scale = 1f)
-                    .playerControlBlend(),
+                    .size(sideButtonSize)
+                    .graphicsLayer {
+                        scaleX = prevScale
+                        scaleY = prevScale
+                    }
+                    .pointerHoverIcon(PointerIcon.Hand),
         ) {
-            Icon(MetrolistIcons.Rounded.SkipPrevious, previousText, modifier = Modifier.size(iconSize))
+            Box(contentAlignment = Alignment.Center) {
+                Icon(
+                    MetrolistIcons.Rounded.SkipPrevious,
+                    contentDescription = previousText,
+                    modifier = Modifier.size(sideIconSize),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                )
+            }
         }
 
-        Spacer(Modifier.width(if (isCompact) 6.dp else 8.dp))
-
-        FilledTonalButton(
+        Surface(
             onClick = {
                 haptics.toggle(!isPlaying)
                 onTogglePlay()
             },
-            shapes = ButtonDefaults.shapes(shape = playShape),
+            shape = CircleShape,
+            color = centerButtonContainerColor,
+            contentColor = centerButtonContentColor,
             interactionSource = playPauseInteractionSource,
-            colors =
-                ButtonDefaults.filledTonalButtonColors(
-                    containerColor = centerButtonContainerColor,
-                    contentColor = centerButtonContentColor,
-                ),
-            contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp),
             modifier =
                 Modifier
-                    .height(buttonHeight)
+                    .size(playButtonSize)
+                    .graphicsLayer {
+                        scaleX = playPauseScale
+                        scaleY = playPauseScale
+                    }
                     .pointerHoverIcon(PointerIcon.Hand)
-                    .widthIn(min = minPlayWidth)
-                    .weight(playPauseWeight)
-                    .tvFocusHighlight(playShape, scale = 1f, color = centerButtonContentColor)
                     .then(
                         if (playPauseFocusRequester != null) {
                             Modifier.focusRequester(playPauseFocusRequester)
@@ -283,105 +241,50 @@ fun PlayerPrimaryControls(
                         },
                     ),
         ) {
-            if (isLoading && showLoadingIndicator) {
-                LoadingIndicator(
-                    modifier =
-                        Modifier.size(if (isCompact) 20.dp else 28.dp).semantics {
-                            contentDescription = loadingText
-                        },
-                    color = LocalContentColor.current,
-                )
-            } else {
-                Row(
-                    modifier = Modifier.padding(horizontal = if (isCompact) 0.dp else 8.dp),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Icon(
-                        if (isPlaying) MetrolistIcons.Rounded.Pause else MetrolistIcons.Rounded.PlayArrow,
-                        if (showLabels) {
-                            null
-                        } else if (isPlaying) {
-                            pauseText
-                        } else {
-                            playText
-                        },
-                        modifier =
-                            Modifier.size(
-                                if (isCompact) {
-                                    20.dp
-                                } else if (showLabels) {
-                                    28.dp
-                                } else {
-                                    IconButtonDefaults.largeIconSize
-                                },
-                            ),
+            Box(contentAlignment = Alignment.Center) {
+                if (isLoading && showLoadingIndicator) {
+                    LoadingIndicator(
+                        modifier = Modifier.size(28.dp).semantics { contentDescription = loadingText },
+                        color = centerButtonContentColor,
                     )
-                    if (showLabels) {
-                        val playPauseText = if (isPlaying) pauseText else playText
-                        val labelEffectsSpec = MaterialTheme.motionScheme.fastEffectsSpec<Float>()
-                        val labelSpatialSpec = MaterialTheme.motionScheme.fastSpatialSpec<IntSize>()
-                        Spacer(Modifier.width(if (isCompact) 6.dp else 10.dp))
-                        AnimatedContent(
-                            targetState = playPauseText,
-                            modifier =
-                                Modifier.weight(1f, fill = false).clearAndSetSemantics {
-                                    text = AnnotatedString(playPauseText)
-                                },
-                            transitionSpec = {
-                                (fadeIn(labelEffectsSpec) togetherWith fadeOut(labelEffectsSpec))
-                                    .using(SizeTransform { _, _ -> labelSpatialSpec })
-                            },
-                            contentAlignment = Alignment.Center,
-                            label = "playPauseLabel",
-                        ) { labelText ->
-                            Text(
-                                labelText,
-                                style =
-                                    (if (isCompact) MaterialTheme.typography.labelLarge else MaterialTheme.typography.titleLarge).copy(
-                                        lineHeightStyle = LineHeightStyle(LineHeightStyle.Alignment.Center, LineHeightStyle.Trim.Both),
-                                    ),
-                                autoSize =
-                                    if (isCompact) {
-                                        null
-                                    } else {
-                                        TextAutoSize.StepBased(
-                                            minFontSize = MaterialTheme.typography.labelSmall.fontSize,
-                                            maxFontSize = MaterialTheme.typography.titleLarge.fontSize,
-                                        )
-                                    },
-                                fontWeight = FontWeight.SemiBold,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                            )
-                        }
-                    }
+                } else {
+                    Icon(
+                        imageVector = if (isPlaying) MetrolistIcons.Rounded.Pause else MetrolistIcons.Rounded.PlayArrow,
+                        contentDescription = if (isPlaying) pauseText else playText,
+                        modifier = Modifier.size(playIconSize),
+                        tint = centerButtonContentColor,
+                    )
                 }
             }
         }
 
-        Spacer(Modifier.width(if (isCompact) 6.dp else 8.dp))
-
-        FilledTonalButton(
-            onClick = { onSkipNext?.invoke() },
+        Surface(
+            onClick = {
+                haptics.perform(HapticEvent.PRESS)
+                onSkipNext?.invoke()
+            },
             enabled = onSkipNext != null,
-            shapes = ButtonDefaults.shapes(shape = sideShape),
+            shape = CircleShape,
+            color = Color.White.copy(alpha = 0.08f),
+            contentColor = MaterialTheme.colorScheme.onSurface,
             interactionSource = nextInteractionSource,
-            colors =
-                ButtonDefaults.filledTonalButtonColors(
-                    containerColor = sideButtonContainerColor.copy(alpha = 0.85f),
-                    contentColor = sideButtonContentColor,
-                ),
-            contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp),
             modifier =
                 Modifier
-                    .height(effectiveSideButtonHeight)
-                    .pointerHoverIcon(PointerIcon.Hand)
-                    .weight(nextButtonWeight)
-                    .tvFocusHighlight(sideShape, scale = 1f)
-                    .playerControlBlend(),
+                    .size(sideButtonSize)
+                    .graphicsLayer {
+                        scaleX = nextScale
+                        scaleY = nextScale
+                    }
+                    .pointerHoverIcon(PointerIcon.Hand),
         ) {
-            Icon(MetrolistIcons.Rounded.SkipNext, nextText, modifier = Modifier.size(iconSize))
+            Box(contentAlignment = Alignment.Center) {
+                Icon(
+                    MetrolistIcons.Rounded.SkipNext,
+                    contentDescription = nextText,
+                    modifier = Modifier.size(sideIconSize),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                )
+            }
         }
     }
 }
