@@ -595,6 +595,7 @@ private fun <T> DesktopWideNavigationRail(
                                             Icon(
                                                 imageVector = if (isSelected) item.selectedIcon else item.icon,
                                                 contentDescription = null,
+                                                tint = if (isSelected) Color(0xFF0A84FF) else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
                                             )
                                         }
                                     }
@@ -726,6 +727,7 @@ private fun <T> SlimNavigationBarContent(
                     Icon(
                         imageVector = if (selected) item.selectedIcon else item.icon,
                         contentDescription = item.label,
+                        tint = if (selected) Color(0xFF0A84FF) else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
                     )
                 },
                 label = null,

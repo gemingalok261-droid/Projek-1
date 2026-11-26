@@ -37,7 +37,7 @@ import com.metrolist.shared.utils.artworkColors
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-val DefaultThemeColor = Color(0xFFFA243C)
+val DefaultThemeColor = Color(0xFF0A84FF)
 
 // Official material-color-utilities Score fallback (Google Blue), used when the artwork has no usable colour.
 val ArtworkFallbackSeedColor = Color(0xFF4285F4)

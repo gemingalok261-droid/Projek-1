@@ -75,16 +75,15 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release delete v1.1.0 --yes 2>/dev/null || true
-          git tag -d v1.1.0 2>/dev/null || true
-          gh release create v1.1.0 dist/*.apk \
-            --title "Projek 1 v1.1.0 (Apple Music UI)" \
-            --notes "### Projek 1 v1.1.0 - Apple Music Redesign
+          gh release delete v1.2.0 --yes 2>/dev/null || true
+          git tag -d v1.2.0 2>/dev/null || true
+          gh release create v1.2.0 dist/*.apk \
+            --title "Projek 1 v1.2.0 (Liquid Glass & Blue Theme)" \
+            --notes "### Projek 1 v1.2.0 - Liquid Glass & Blue Theme Redesign
 
-          Fitur dan pembaruan layout player:
-          - **Player Overhaul**: Rombak total tombol playback dengan desain circular minimalis khas Apple Music.
-          - **Volume Slider**: Menambahkan slider volume langsung di bawah kontrol pemutar lagu.
-          - **Album Art 24dp**: Sudut cover album membulat halus khas kartu Apple Music.
-          - **Blurred Artwork Background**: Latar belakang pemutar blur dinamis otomatis aktif.
-          - **Slim Scrubber**: Bar progress lagu ramping dan elegan.
+          Pembaruan tampilan dan tema:
+          - **Ikon Monokrom**: Menggantikan identitas lama dengan ikon hitam-putih yang minimalis dan elegan.
+          - **Warna Aksen Biru**: Tab aktif pada bilah navigasi dan indikator menu kini menggunakan aksen biru vibrant.
+          - **Widget Baru Berlatar Hitam**: Seluruh widget tampil lebih segar dengan latar belakang hitam murni (Pure Black) dan border Liquid Glass.
+          - **Estetika Cairan & Liquid Glass**: Pemutar lagu dengan efek cairan getaran gelombang suara (Liquid Background) dan Wavy Scrubber, serta tombol melingkar frosted glass.
           - **File APK**: Download file **Projek-1.apk** langsung di bawah!"

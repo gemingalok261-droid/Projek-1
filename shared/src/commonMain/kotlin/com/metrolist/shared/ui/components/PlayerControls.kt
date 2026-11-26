@@ -9,6 +9,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
@@ -196,6 +197,7 @@ fun PlayerPrimaryControls(
             enabled = onSkipPrevious != null,
             shape = CircleShape,
             color = Color.White.copy(alpha = 0.08f),
+            border = BorderStroke(1.dp, Color.White.copy(alpha = 0.16f)),
             contentColor = MaterialTheme.colorScheme.onSurface,
             interactionSource = prevInteractionSource,
             modifier =
@@ -223,8 +225,9 @@ fun PlayerPrimaryControls(
                 onTogglePlay()
             },
             shape = CircleShape,
-            color = centerButtonContainerColor,
-            contentColor = centerButtonContentColor,
+            color = Color(0xFF0A84FF),
+            border = BorderStroke(1.5.dp, Color.White.copy(alpha = 0.25f)),
+            contentColor = Color.White,
             interactionSource = playPauseInteractionSource,
             modifier =
                 Modifier
@@ -246,14 +249,14 @@ fun PlayerPrimaryControls(
                 if (isLoading && showLoadingIndicator) {
                     LoadingIndicator(
                         modifier = Modifier.size(28.dp).semantics { contentDescription = loadingText },
-                        color = centerButtonContentColor,
+                        color = Color.White,
                     )
                 } else {
                     Icon(
                         imageVector = if (isPlaying) MetrolistIcons.Rounded.Pause else MetrolistIcons.Rounded.PlayArrow,
                         contentDescription = if (isPlaying) pauseText else playText,
                         modifier = Modifier.size(playIconSize),
-                        tint = centerButtonContentColor,
+                        tint = Color.White,
                     )
                 }
             }
@@ -267,6 +270,7 @@ fun PlayerPrimaryControls(
             enabled = onSkipNext != null,
             shape = CircleShape,
             color = Color.White.copy(alpha = 0.08f),
+            border = BorderStroke(1.dp, Color.White.copy(alpha = 0.16f)),
             contentColor = MaterialTheme.colorScheme.onSurface,
             interactionSource = nextInteractionSource,
             modifier =
