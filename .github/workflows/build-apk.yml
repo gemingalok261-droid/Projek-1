@@ -25,6 +25,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '25'
+          check-latest: true
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v4
