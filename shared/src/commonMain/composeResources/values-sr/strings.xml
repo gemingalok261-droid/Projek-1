@@ -1167,7 +1167,7 @@
     <string name="credits_creator_section">Autor</string>
     <string name="devmode_already_active" translatable="true">Režim za programere je već uključen</string>
     <string name="discord_enable_rich_presence">Discord Rich Presence</string>
-    <string name="discord_listen_to_projek1">Slušaj Projek 1</string>
+    <string name="discord_listen_to_metrolist">Slušaj Projek 1</string>
     <string name="discord_login_description">Poveži svoj Discord nalog</string>
     <string name="discord_button1_text_default">Slušaj na YouTube Music-u</string>
     <string name="discord_error_denied">Discord je odbio autorizaciju.</string>

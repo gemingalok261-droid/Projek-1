@@ -242,7 +242,7 @@
     <string name="credits_license_desc">Projek 1 依據 GPL-3.0 授權</string>
     <string name="devmode_already_active" translatable="true">開發模式已啟用</string>
     <string name="discord_enable_rich_presence">啟用 Discord Rich Presence</string>
-    <string name="discord_listen_to_projek1">用 Projek 1 收聽</string>
+    <string name="discord_listen_to_metrolist">用 Projek 1 收聽</string>
     <string name="discord_login_description">連結您的 Discord 帳戶</string>
     <string name="discord_rich_presence">Rich Presence</string>
     <string name="discord_state">狀態</string>

@@ -255,7 +255,7 @@
     <string name="credits_license_desc">Projek 1 on litsentsitud GPL-3.0 all</string>
     <string name="devmode_already_active" translatable="true">Arendajarežiim on juba aktiivne</string>
     <string name="discord_enable_rich_presence">Luba Discord'i Rich Presence</string>
-    <string name="discord_listen_to_projek1">Kuula Projek 1\u0027i</string>
+    <string name="discord_listen_to_metrolist">Kuula Projek 1\u0027i</string>
     <string name="discord_login_description">Ühenda oma Discord\u0027i konto</string>
     <string name="discord_rich_presence">Rich presence</string>
     <string name="discord_state">Staatus</string>

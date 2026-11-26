@@ -648,7 +648,7 @@
     <string name="credits_creator_section">Người tạo</string>
     <string name="devmode_already_active" translatable="true">Chế độ nhà phát triển đã được bật</string>
     <string name="discord_enable_rich_presence">Discord Rich Presence</string>
-    <string name="discord_listen_to_projek1">Nghe Projek 1</string>
+    <string name="discord_listen_to_metrolist">Nghe Projek 1</string>
     <string name="discord_login_description">Kết nối tài khoản Discord của bạn</string>
     <string name="discord_rich_presence">Rich presence</string>
     <string name="discord_state">Trạng thái</string>
@@ -1801,7 +1801,7 @@
     <string name="menu_keyboard_shortcuts">Phím tắt</string>
     <string name="menu_application_logs">Nhật ký ứng dụng</string>
     <string name="menu_report_issue">Báo cáo sự cố…</string>
-    <string name="menu_about_projek1">Giới thiệu Projek 1</string>
+    <string name="menu_about_metrolist">Giới thiệu Projek 1</string>
     <string name="menu_song">Bài hát</string>
     <string name="menu_stop">Dừng</string>
     <string name="menu_go_to_current_song">Đến bài hát hiện tại</string>
@@ -2051,7 +2051,7 @@
     <string name="desktop_tray_toggle_on_click_desc_mac">Nhấp chuột phải vào biểu tượng khay sẽ mở hoặc đóng cửa sổ Projek 1</string>
     <string name="tray_show_miniplayer">Hiện trình phát thu nhỏ</string>
     <string name="tray_settings">Cài đặt</string>
-    <string name="tray_quit_projek1">Thoát Projek 1</string>
+    <string name="tray_quit_metrolist">Thoát Projek 1</string>
     <string name="sign_in_discord">Đăng nhập Discord</string>
     <string name="discord_continue_in_browser">Hãy tiếp tục đăng nhập Discord trong trình duyệt của bạn. Quay lại Projek 1 khi hoàn tất.</string>
     <string name="discord_open_browser_again">Mở lại</string>

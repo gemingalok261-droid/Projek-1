@@ -270,7 +270,7 @@
     <string name="credits_license_desc">Projek 1 je licenciran pod licenco GPL-3.0.</string>
     <string name="devmode_already_active" translatable="true">Način za razvijalce je že aktiven</string>
     <string name="discord_enable_rich_presence">Omogoči Discord Rich Presence</string>
-    <string name="discord_listen_to_projek1">Poslušajte Projek 1</string>
+    <string name="discord_listen_to_metrolist">Poslušajte Projek 1</string>
     <string name="discord_login_description">Povežite svoj Discord račun</string>
     <string name="discord_rich_presence">Rich presence</string>
     <string name="discord_state">Stanje</string>

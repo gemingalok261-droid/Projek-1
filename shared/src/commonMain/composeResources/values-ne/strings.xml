@@ -255,7 +255,7 @@
     <string name="credits_license_desc">मेट्रोलिस्ट GPL-3.0 लाइसेन्स अन्तर्गत लाइसेन्स गरिएको छ</string>
     <string name="devmode_already_active" translatable="true">डेभलपर मोड पहिले नै सक्रिय छ</string>
     <string name="discord_enable_rich_presence">डिस्कर्ड रिच प्रेजेन्स</string>
-    <string name="discord_listen_to_projek1">Projek 1 सुन्नुहोस</string>
+    <string name="discord_listen_to_metrolist">Projek 1 सुन्नुहोस</string>
     <string name="discord_login_description">आफ्नो Discord खाता जोड्नुहोस्</string>
     <string name="discord_rich_presence">रिच प्रेजेन्स</string>
     <string name="discord_state">स्थिति</string>

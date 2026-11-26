@@ -255,7 +255,7 @@
     <string name="credits_license_desc">Projek 1 पर GPL-3.0 लाइसेंस लागू है</string>
     <string name="devmode_already_active" translatable="true">Devmode पहले से ही सक्रिय है</string>
     <string name="discord_enable_rich_presence">Discord Rich Presence सक्षम करें</string>
-    <string name="discord_listen_to_projek1">Projek 1 सुनें</string>
+    <string name="discord_listen_to_metrolist">Projek 1 सुनें</string>
     <string name="discord_login_description">अपना Discord अकाउंट कनेक्ट करें</string>
     <string name="discord_rich_presence">Rich presence</string>
     <string name="discord_state">स्थिति</string>

@@ -255,7 +255,7 @@
     <string name="credits_license_desc">Projek 1 ist unter GPL-3.0 lizenziert</string>
     <string name="devmode_already_active" translatable="true">Entwicklermodus ist bereits aktiv</string>
     <string name="discord_enable_rich_presence">Discord Rich Presence</string>
-    <string name="discord_listen_to_projek1">Hören mit Projek 1</string>
+    <string name="discord_listen_to_metrolist">Hören mit Projek 1</string>
     <string name="discord_login_description">Verbinde deinen Discord-Account</string>
     <string name="discord_rich_presence">Rich Presence</string>
     <string name="discord_state">Status</string>
@@ -1337,7 +1337,7 @@
     <string name="menu_keyboard_shortcuts">Tastenkürzel</string>
     <string name="menu_application_logs">App-Protokolle</string>
     <string name="menu_report_issue">Ein Problem melden…</string>
-    <string name="menu_about_projek1">Über Projek 1</string>
+    <string name="menu_about_metrolist">Über Projek 1</string>
     <string name="menu_song">Song</string>
     <string name="menu_stop">Stop</string>
     <string name="menu_go_to_current_song">Zum aktuellen Song</string>
@@ -1575,7 +1575,7 @@
     <string name="tray_show_window">Fenster anzeigen</string>
     <string name="tray_show_miniplayer">Mini-Player anzeigen</string>
     <string name="tray_settings">Einstellungen</string>
-    <string name="tray_quit_projek1">Projek 1 beenden</string>
+    <string name="tray_quit_metrolist">Projek 1 beenden</string>
     <string name="sign_in_discord">Bei Discord anmelden</string>
     <string name="discord_sign_in_unavailable">Discord-Anmeldung nicht verfügbar</string>
     <string name="sign_in_youtube_music">Bei Youtube Music anmelden</string>

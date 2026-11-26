@@ -271,7 +271,7 @@
     <string name="credits_license_desc">Projek 1 распространяется под лицензией GPL-3.0</string>
     <string name="devmode_already_active" translatable="true">Режим разработчика уже активен</string>
     <string name="discord_enable_rich_presence">Discord Rich Presence</string>
-    <string name="discord_listen_to_projek1">Слушает в Projek 1</string>
+    <string name="discord_listen_to_metrolist">Слушает в Projek 1</string>
     <string name="discord_login_description">Подключите свой аккаунт Discord</string>
     <string name="discord_rich_presence">Rich presence</string>
     <string name="discord_state">Состояние</string>
@@ -1411,7 +1411,7 @@
     <string name="menu_keyboard_shortcuts">Сочетания клавиш</string>
     <string name="menu_application_logs">Логи приложения</string>
     <string name="menu_report_issue">Сообщить о проблеме…</string>
-    <string name="menu_about_projek1">О Projek 1</string>
+    <string name="menu_about_metrolist">О Projek 1</string>
     <string name="menu_song">Песня</string>
     <string name="menu_stop">Стоп</string>
     <string name="menu_go_to_current_song">Перейти к текущей песне</string>
@@ -1653,7 +1653,7 @@
     <string name="tray_show_window">Показать окно</string>
     <string name="tray_show_miniplayer">Показать мини-плеер</string>
     <string name="tray_settings">Настройки</string>
-    <string name="tray_quit_projek1">Выйти из Projek 1</string>
+    <string name="tray_quit_metrolist">Выйти из Projek 1</string>
     <string name="sign_in_discord">Войти в Discord</string>
     <string name="discord_sign_in_unavailable">Вход в Discord недоступен</string>
     <string name="sign_in_youtube_music">Войти в YouTube Music</string>

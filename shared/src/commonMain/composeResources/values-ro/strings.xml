@@ -263,7 +263,7 @@
     <string name="credits_license_desc">Projek 1 este licențiat sub GPL-3.0</string>
     <string name="devmode_already_active" translatable="true">Modul dezvoltator este deja activat</string>
     <string name="discord_enable_rich_presence">Discord Rich Presence</string>
-    <string name="discord_listen_to_projek1">Ascultă pe Projek 1</string>
+    <string name="discord_listen_to_metrolist">Ascultă pe Projek 1</string>
     <string name="discord_login_description">Conectează-ți contul de Discord</string>
     <string name="discord_rich_presence">Rich presence</string>
     <string name="discord_state">Stare</string>
@@ -1372,7 +1372,7 @@
     <string name="menu_keyboard_shortcuts">Comenzi rapide la tastatură</string>
     <string name="menu_application_logs">Jurnalele aplicației</string>
     <string name="menu_report_issue">Raportează o problemă…</string>
-    <string name="menu_about_projek1">Despre Projek 1</string>
+    <string name="menu_about_metrolist">Despre Projek 1</string>
     <string name="menu_song">Melodie</string>
     <string name="menu_stop">Oprire</string>
     <string name="menu_go_to_current_song">Mergi la melodia curentă</string>
@@ -1614,7 +1614,7 @@
     <string name="tray_show_window">Arată fereastra</string>
     <string name="tray_show_miniplayer">Afișează miniplayerul</string>
     <string name="tray_settings">Setări</string>
-    <string name="tray_quit_projek1">Ieșire din Projek 1</string>
+    <string name="tray_quit_metrolist">Ieșire din Projek 1</string>
     <string name="sign_in_discord">Autentifică-te la Discord</string>
     <string name="discord_sign_in_unavailable">Conectarea prin Discord nu este disponibilă</string>
     <string name="sign_in_youtube_music">Autentifică-te la YouTube Music</string>

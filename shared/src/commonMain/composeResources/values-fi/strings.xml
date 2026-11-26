@@ -255,7 +255,7 @@
     <string name="credits_license_desc">Projek 1 on GPL-3.0-lisenssin alainen.</string>
     <string name="devmode_already_active" translatable="true">Kehittäjätila on jo käytössä</string>
     <string name="discord_enable_rich_presence">Discord Rich Presence</string>
-    <string name="discord_listen_to_projek1">Kuuntele Projek 1illä</string>
+    <string name="discord_listen_to_metrolist">Kuuntele Projek 1illä</string>
     <string name="discord_login_description">Yhdistä Discord-tilisi</string>
     <string name="discord_rich_presence">Rich presence</string>
     <string name="discord_state">Tila</string>
@@ -1390,7 +1390,7 @@
     <string name="menu_keyboard_shortcuts">Pikanäppäimet</string>
     <string name="menu_application_logs">Sovelluslokit</string>
     <string name="menu_report_issue">Ilmoita ongelmasta…</string>
-    <string name="menu_about_projek1">Tietoja Projek 1istä</string>
+    <string name="menu_about_metrolist">Tietoja Projek 1istä</string>
     <string name="menu_song">Kappale</string>
     <string name="menu_stop">Pysäytä</string>
     <string name="menu_go_to_current_song">Siirry nykyiseen kappaleeseen</string>
@@ -1625,7 +1625,7 @@
     <string name="tray_show_window">Näytä ikkuna</string>
     <string name="tray_show_miniplayer">Näytä minisoitin</string>
     <string name="tray_settings">Asetukset</string>
-    <string name="tray_quit_projek1">Sulje Projek 1</string>
+    <string name="tray_quit_metrolist">Sulje Projek 1</string>
     <string name="sign_in_discord">Kirjaudu sisään Discordiin</string>
     <string name="discord_sign_in_unavailable">Discord-kirjautuminen ei ole saatavilla</string>
     <string name="sign_in_youtube_music">Kirjaudu sisään Youtube Musiciin</string>

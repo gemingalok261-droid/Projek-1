@@ -791,7 +791,7 @@
     <!-- Translators: Imperative action label for enable rich presence in the Discord integration. -->
     <string name="discord_enable_rich_presence">Discord Rich Presence</string>
     <!-- Translators: Label for listen to projek1 in the Discord integration. -->
-    <string name="discord_listen_to_projek1">Listen to Projek 1</string>
+    <string name="discord_listen_to_metrolist">Listen to Projek 1</string>
     <!-- Translators: Supporting text beneath the login option in the Discord integration. -->
     <string name="discord_login_description">Connect your Discord account</string>
     <!-- Translators: Label for rich presence in the Discord integration. -->
@@ -3832,7 +3832,7 @@
     <!-- Translators: Progress or status message for report issue in the desktop application menu. -->
     <string name="menu_report_issue">Report an issue…</string>
     <!-- Translators: Label for about projek1 in the desktop application menu. -->
-    <string name="menu_about_projek1">About Projek 1</string>
+    <string name="menu_about_metrolist">About Projek 1</string>
     <!-- Translators: Label for song in the desktop application menu. -->
     <string name="menu_song">Song</string>
     <!-- Translators: Imperative action label for stop in the desktop application menu. -->
@@ -4593,7 +4593,7 @@
     <!-- Translators: Label for tray settings in the desktop system tray. -->
     <string name="tray_settings">Settings</string>
     <!-- Translators: Label for quit projek1 in the desktop system tray. -->
-    <string name="tray_quit_projek1">Quit Projek 1</string>
+    <string name="tray_quit_metrolist">Quit Projek 1</string>
 
     <!-- Desktop: Discord login -->
     <!-- Translators: Imperative action label for sign in discord in the sign-in flow. -->

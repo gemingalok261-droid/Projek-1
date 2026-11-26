@@ -263,7 +263,7 @@
     <string name="credits_license_desc">Projek 1 est distribué sous licence GPL-3.0</string>
     <string name="devmode_already_active" translatable="true">Mode développeur déjà actif</string>
     <string name="discord_enable_rich_presence">Discord Rich Presence</string>
-    <string name="discord_listen_to_projek1">Écoute Projek 1</string>
+    <string name="discord_listen_to_metrolist">Écoute Projek 1</string>
     <string name="discord_login_description">Connectez-vous à Discord</string>
     <string name="discord_rich_presence">Rich Presence</string>
     <string name="discord_state">État</string>
@@ -1584,7 +1584,7 @@
     <string name="menu_application_logs">Journaux de l'application</string>
     <string name="app_logs">Journaux de l'application</string>
     <string name="menu_report_issue">Signaler un problème…</string>
-    <string name="menu_about_projek1">À propos de Projek 1</string>
+    <string name="menu_about_metrolist">À propos de Projek 1</string>
     <string name="menu_song">Titre</string>
     <string name="song_type">Titre</string>
     <string name="menu_stop">Arrêter</string>
@@ -1829,7 +1829,7 @@
     <string name="tray_show_window">Afficher la fenêtre</string>
     <string name="tray_show_miniplayer">Mini-lecteur</string>
     <string name="tray_settings">Paramètres</string>
-    <string name="tray_quit_projek1">Quitter Projek 1</string>
+    <string name="tray_quit_metrolist">Quitter Projek 1</string>
     <string name="webview_cleanup_failed">Le profil d\u0027authentification WebView n\u0027a pas pu être supprimé.</string>
     <string name="clearing_signin_session">Fermeture de la session de connexion non terminée…</string>
     <string name="signin_cleanup_failed">Échec de la fermeture de la session de connexion.</string>

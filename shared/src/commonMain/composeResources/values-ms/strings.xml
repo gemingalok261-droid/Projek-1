@@ -242,7 +242,7 @@
     <string name="credits_license_desc">Projek 1 dilesenkan di bawah GPL-3.0</string>
     <string name="devmode_already_active" translatable="true">Mod pembangun sudah aktif</string>
     <string name="discord_enable_rich_presence">Aktifkan Discord Rich Presence</string>
-    <string name="discord_listen_to_projek1">Dengar Projek 1</string>
+    <string name="discord_listen_to_metrolist">Dengar Projek 1</string>
     <string name="discord_login_description">Sambungkan akaun Discord anda</string>
     <string name="discord_rich_presence">Rich presence</string>
     <string name="discord_state">Keadaan</string>

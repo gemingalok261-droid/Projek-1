@@ -271,7 +271,7 @@
     <string name="credits_license_desc">Aplikacja Projek 1 jest dostępna na licencji GPL-3.0</string>
     <string name="devmode_already_active" translatable="true">Tryb programisty jest już aktywny</string>
     <string name="discord_enable_rich_presence">Discord Rich Presence</string>
-    <string name="discord_listen_to_projek1">Słucha Projek 1</string>
+    <string name="discord_listen_to_metrolist">Słucha Projek 1</string>
     <string name="discord_login_description">Połącz konto Discord</string>
     <string name="discord_rich_presence">Rich Presence</string>
     <string name="discord_state">Stan</string>
@@ -1412,7 +1412,7 @@
     <string name="menu_keyboard_shortcuts">Skróty klawiaturowe</string>
     <string name="menu_application_logs">Dzienniki zdarzeń aplikacji</string>
     <string name="menu_report_issue">Zgłoś problem…</string>
-    <string name="menu_about_projek1">O Projek 1</string>
+    <string name="menu_about_metrolist">O Projek 1</string>
     <string name="menu_song">Utwór</string>
     <string name="menu_stop">Stop</string>
     <string name="menu_go_to_current_song">Przejdź do bieżącego utworu</string>
@@ -1654,7 +1654,7 @@
     <string name="tray_show_window">Pokaż okno</string>
     <string name="tray_show_miniplayer">Pokaż miniodtwarzacz</string>
     <string name="tray_settings">Ustawienia</string>
-    <string name="tray_quit_projek1">Wyjdź z Projek 1</string>
+    <string name="tray_quit_metrolist">Wyjdź z Projek 1</string>
     <string name="sign_in_discord">Zaloguj się na konto Discord</string>
     <string name="discord_sign_in_unavailable">Logowanie przez Discorda niedostępne</string>
     <string name="sign_in_youtube_music">Zaloguj się do YouTube Music</string>

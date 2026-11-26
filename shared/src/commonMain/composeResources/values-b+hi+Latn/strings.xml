@@ -255,7 +255,7 @@
     <string name="credits_license_desc">Projek 1 GPL-3.0 license ke antargat aata hai.</string>
     <string name="devmode_already_active" translatable="true">Devmode pehle se hi chaalu hai</string>
     <string name="discord_enable_rich_presence">Discord par dikhaye ki kya sun rahe hai</string>
-    <string name="discord_listen_to_projek1">Projek 1 me sune</string>
+    <string name="discord_listen_to_metrolist">Projek 1 me sune</string>
     <string name="discord_login_description">Apne discord ki account ko jode</string>
     <string name="discord_rich_presence">Sunne ki jaankari</string>
     <string name="discord_state">Sthiti</string>
