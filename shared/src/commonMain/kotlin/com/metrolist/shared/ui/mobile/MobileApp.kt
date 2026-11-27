@@ -100,6 +100,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LifecycleStartEffect
@@ -242,6 +243,8 @@ import com.metrolist.shared.ui.player.PlayerScreen
 import com.metrolist.shared.ui.player.collectWhilePlayerActive
 import com.metrolist.shared.ui.screens.AboutScreen
 import com.metrolist.shared.ui.screens.HomeContent
+import com.metrolist.shared.ui.screens.LyricCrosswordScreen
+import com.metrolist.shared.ui.screens.MerchLinkerScreen
 import com.metrolist.shared.ui.screens.SearchScreen
 import com.metrolist.shared.ui.screens.SupportPrompt
 import com.metrolist.shared.ui.screens.homeContentText
@@ -976,7 +979,7 @@ fun MobileApp(
                     },
                     bottomBar = {
                         // The floating bar's height sits under the mini player slot; lists scroll behind both.
-                        if (playbackState.currentSong == null || currentRoute == MobileRoute.Wrapped) {
+                        if (playbackState.currentSong == null || currentRoute == MobileRoute.Wrapped || currentRoute == MobileRoute.Crossword || currentRoute is MobileRoute.MerchLinker) {
                             Spacer(Modifier.fillMaxWidth().height(floatingContentInset))
                         } else {
                             val isModernMiniPlayer = Settings.shared.miniPlayerType == MiniPlayerType.MODERN
@@ -1144,7 +1147,10 @@ fun MobileApp(
                                                         }
                                                     }
                                                     item(key = "welcome_streak_banner") {
-                                                        com.metrolist.shared.ui.components.AccretionWelcomeStreakBanner()
+                                                        com.metrolist.shared.ui.components.AccretionWelcomeStreakBanner(
+                                                            onOpenCrossword = { open(MobileRoute.Crossword) },
+                                                            onOpenMerchLinker = { open(MobileRoute.MerchLinker(playbackState.currentSong)) },
+                                                        )
                                                     }
                                                     item(key = "wrapped_card") {
                                                         WrappedHomeCard(
@@ -1292,16 +1298,78 @@ fun MobileApp(
                             }
 
                             MobileRoute.EasterEgg -> {
-                                Box(
-                                    modifier = Modifier.fillMaxSize().padding(padding),
-                                    contentAlignment = Alignment.Center,
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(padding)
+                                        .padding(horizontal = 24.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center,
                                 ) {
                                     Text(
-                                        text = stringResource(Res.string.mysterious_fourth_tab_description),
-                                        textAlign = TextAlign.Center,
-                                        modifier = Modifier.padding(32.dp),
+                                        text = "🎮 Accretion Arcade Hub",
+                                        style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                                        color = MaterialTheme.colorScheme.primary,
                                     )
+                                    Spacer(Modifier.height(8.dp))
+                                    Text(
+                                        text = "Fitur interaktif eksklusif: TTS Lirik Lagu & Merch Linker fisik nyata!",
+                                        textAlign = TextAlign.Center,
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    )
+                                    Spacer(Modifier.height(24.dp))
+                                    Button(
+                                        onClick = { open(MobileRoute.Crossword) },
+                                        modifier = Modifier.fillMaxWidth().height(52.dp),
+                                        shape = RoundedCornerShape(16.dp),
+                                        colors = ButtonDefaults.buttonColors(
+                                            containerColor = MaterialTheme.colorScheme.primary,
+                                        ),
+                                    ) {
+                                        Text("🧩 Main TTS Lirik Ray (Crossword)", fontWeight = FontWeight.Bold)
+                                    }
+                                    Spacer(Modifier.height(12.dp))
+                                    Button(
+                                        onClick = { open(MobileRoute.MerchLinker(playbackState.currentSong)) },
+                                        modifier = Modifier.fillMaxWidth().height(52.dp),
+                                        shape = RoundedCornerShape(16.dp),
+                                        colors = ButtonDefaults.buttonColors(
+                                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                                        ),
+                                    ) {
+                                        Text("🏷️ Merch Linker (QR & NFC)", fontWeight = FontWeight.Bold)
+                                    }
                                 }
+                            }
+
+                            MobileRoute.Crossword -> {
+                                LyricCrosswordScreen(
+                                    database = database,
+                                    playbackController = playbackController,
+                                    onBack = ::back,
+                                    onShareScore = { scoreCard ->
+                                        playerServices.shareText(scoreCard)
+                                    },
+                                    modifier = Modifier.fillMaxSize(),
+                                )
+                            }
+
+                            is MobileRoute.MerchLinker -> {
+                                MerchLinkerScreen(
+                                    currentSong = route.initialSong ?: playbackState.currentSong,
+                                    onBack = ::back,
+                                    onShareMerch = { merchCard ->
+                                        playerServices.shareText(merchCard)
+                                    },
+                                    onWriteNfcTag = { songId, songTitle ->
+                                        scope.launch {
+                                            snackbarHostState.showSnackbar("Mendekatkan HP ke NFC Tag untuk menulis lagu '$songTitle'...")
+                                        }
+                                    },
+                                    modifier = Modifier.fillMaxSize(),
+                                )
                             }
 
                             MobileRoute.History -> {
@@ -2021,7 +2089,7 @@ fun MobileApp(
                 )
             }
 
-            if (playbackState.currentSong != null && miniPlayerBounds != null && currentRoute != MobileRoute.Wrapped) {
+            if (playbackState.currentSong != null && miniPlayerBounds != null && currentRoute != MobileRoute.Wrapped && currentRoute != MobileRoute.Crossword && currentRoute !is MobileRoute.MerchLinker) {
                 var playerRootOffset by remember { mutableStateOf(Offset.Zero) }
                 BoxWithConstraints(
                     Modifier.fillMaxSize().onGloballyPositioned { playerRootOffset = it.positionInRoot() },

@@ -45,6 +45,8 @@ import kotlinx.datetime.toLocalDateTime
 
 @Composable
 fun AccretionWelcomeStreakBanner(
+    onOpenCrossword: (() -> Unit)? = null,
+    onOpenMerchLinker: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     val streakDays = Settings.shared.listeningStreakDays
@@ -79,8 +81,7 @@ fun AccretionWelcomeStreakBanner(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 6.dp)
-            .clip(RoundedCornerShape(22.dp))
-            .clickable { showInfoDialog = !showInfoDialog },
+            .clip(RoundedCornerShape(22.dp)),
         shape = RoundedCornerShape(22.dp),
         color = MaterialTheme.colorScheme.surfaceContainerHigh.copy(alpha = 0.65f),
         tonalElevation = 2.dp,
@@ -108,58 +109,59 @@ fun AccretionWelcomeStreakBanner(
                 )
                 .padding(horizontal = 18.dp, vertical = 14.dp),
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-            ) {
-                Column(modifier = Modifier.weight(1f)) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(
-                            text = "$greeting di ",
-                            style = MaterialTheme.typography.titleMedium.copy(
-                                fontWeight = FontWeight.SemiBold,
-                                fontSize = 17.sp,
-                            ),
-                            color = MaterialTheme.colorScheme.onSurface,
-                        )
-                        Text(
-                            text = "Accretion",
-                            style = MaterialTheme.typography.titleMedium.copy(
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 17.sp,
-                                brush = Brush.linearGradient(
-                                    colors = listOf(
-                                        Color(0xFF64B5F6),
-                                        Color(0xFFBA68C8),
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(
+                                text = "$greeting di ",
+                                style = MaterialTheme.typography.titleMedium.copy(
+                                    fontWeight = FontWeight.SemiBold,
+                                    fontSize = 17.sp,
+                                ),
+                                color = MaterialTheme.colorScheme.onSurface,
+                            )
+                            Text(
+                                text = "Accretion",
+                                style = MaterialTheme.typography.titleMedium.copy(
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 17.sp,
+                                    brush = Brush.linearGradient(
+                                        colors = listOf(
+                                            Color(0xFF64B5F6),
+                                            Color(0xFFBA68C8),
+                                        ),
                                     ),
                                 ),
-                            ),
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(3.dp))
+
+                        Text(
+                            text = if (isStreakActive) {
+                                "Api streak menyala membara! Hari ke-$streakDays beruntun"
+                            } else {
+                                "Putar lagu favoritmu untuk menyalakan streak api musik!"
+                            },
+                            style = MaterialTheme.typography.bodySmall.copy(fontSize = 12.sp),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 2,
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(3.dp))
+                    Spacer(modifier = Modifier.width(12.dp))
 
-                    Text(
-                        text = if (isStreakActive) {
-                            "Api streak menyala membara! Hari ke-$streakDays beruntun"
-                        } else {
-                            "Putar lagu favoritmu untuk menyalakan streak api musik!"
-                        },
-                        style = MaterialTheme.typography.bodySmall.copy(fontSize = 12.sp),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 2,
-                    )
-                }
-
-                Spacer(modifier = Modifier.width(12.dp))
-
-                // Streak Badge with Fire Icon
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(
-                            brush = if (isStreakActive) {
+                    // Streak Badge with Fire Icon
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(16.dp))
+                            .background(
+                                brush = if (isStreakActive) {
                                 Brush.linearGradient(
                                     listOf(
                                         Color(0xFFFF6D00).copy(alpha = 0.25f),
@@ -213,6 +215,65 @@ fun AccretionWelcomeStreakBanner(
                     }
                 }
             }
+
+            if (onOpenCrossword != null || onOpenMerchLinker != null) {
+                Spacer(modifier = Modifier.height(12.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    if (onOpenCrossword != null) {
+                        Surface(
+                            shape = RoundedCornerShape(12.dp),
+                            color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6f),
+                            modifier = Modifier
+                                .weight(1f)
+                                .clip(RoundedCornerShape(12.dp))
+                                .clickable { onOpenCrossword() },
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 8.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Center,
+                            ) {
+                                Text("🧩", fontSize = 14.sp)
+                                Spacer(Modifier.width(6.dp))
+                                Text(
+                                    "Main TTS Lirik",
+                                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                )
+                            }
+                        }
+                    }
+
+                    if (onOpenMerchLinker != null) {
+                        Surface(
+                            shape = RoundedCornerShape(12.dp),
+                            color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.6f),
+                            modifier = Modifier
+                                .weight(1f)
+                                .clip(RoundedCornerShape(12.dp))
+                                .clickable { onOpenMerchLinker() },
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 8.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Center,
+                            ) {
+                                Text("🏷️", fontSize = 14.sp)
+                                Spacer(Modifier.width(6.dp))
+                                Text(
+                                    "Merch Linker",
+                                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                )
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
+}
 }

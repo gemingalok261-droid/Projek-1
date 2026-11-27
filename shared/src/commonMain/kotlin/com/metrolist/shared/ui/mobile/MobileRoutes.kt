@@ -24,6 +24,12 @@ internal sealed interface MobileRoute {
 
     data object EasterEgg : MobileRoute
 
+    data object Crossword : MobileRoute
+
+    data class MerchLinker(
+        val initialSong: SongItem? = null,
+    ) : MobileRoute
+
     data class Settings(
         val initialPage: SettingsPageId? = null,
     ) : MobileRoute

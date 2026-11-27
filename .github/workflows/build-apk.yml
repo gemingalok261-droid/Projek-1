@@ -75,22 +75,22 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release delete v1.4.2 --yes 2>/dev/null || true
-          git tag -d v1.4.2 2>/dev/null || true
-          gh release create v1.4.2 dist/*.apk \
-            --title "Accretion v1.4.2 (Streak Api, High FPS, Queue Fix & Release Updates)" \
-            --notes "### Accretion v1.4.2 - Streak Api, High FPS, Queue Fix & Release Updates
+          gh release delete v1.4.3 --yes 2>/dev/null || true
+          git tag -d v1.4.3 2>/dev/null || true
+          gh release create v1.4.3 dist/*.apk \
+            --title "Accretion v1.4.3 (Lyric Crossword Ray, Bantuan Audio, Leaderboard & NFC/QR Merch Linker)" \
+            --notes "### Accretion v1.4.3 - Lyric Crossword Ray, Bantuan Audio, Leaderboard & NFC/QR Merch Linker
 
-          Pembaruan resmi Accretion v1.4.2:
-          - **Fix Tombol Antrean (Queue Button)**: Tombol antrean di pemutar musik diperbaiki secara tuntas dengan sinkronisasi posisi real-time tanpa konflik anchor state.
-          - **Hapus Opsi Ganti Logo Aplikasi**: Opsi pemilihan ikon aplikasi dihapus sepenuhnya dari Pengaturan Tampilan untuk stabilitas maksimal.
-          - **Fitur Streak Api Musik (🔥)**: Penghitung hari mendengarkan musik beruntun dengan kartu sambutan di beranda. Ikon api menyala membara setiap hari kamu memutar musik!
-          - **Paksa FPS Tinggi (90Hz / 120Hz)**: Sakelar baru di Pengaturan Tampilan untuk memaksimalkan refresh rate layar ke mode puncak agar animasi halus lancar tanpa lag dan aman untuk perangkat.
-          - **Widget 100% Default Metrolist**: Tampilan dan logika widget dikembalikan sepenuhnya sesuai kode standar bawaan repositori Metrolist.
-          - **Izin Overlay Dynamic Island**: Penambahan izin \`SYSTEM_ALERT_WINDOW\` serta tombol pengaturan untuk mengizinkan tampilan Dynamic Island mengambang di atas aplikasi lain ala iPhone.
-          - **Pengalihan Pembaruan Aplikasi**: Pengecekan pembaruan otomatis aplikasi dialihkan langsung ke rilis repositori \`gemingalok261-droid/Projek-1\`.
-          - **Pembaruan Halaman Tentang**:
-            - Avatar Antigravity & Ray diperbarui dengan gambar berkualitas tinggi terbaru.
-            - Tombol TikTok berlabel ringkas 'TikTok' tanpa nama pengguna.
-            - Ikon tombol sponsor diubah menjadi secangkir kopi dengan judul 'Sponsor Pengembangan'.
+          Pembaruan besar Accretion v1.4.3:
+          - **🧩 Lyric Crossword Ray (TTS Lirik Musik)**:
+            - **Ambil Data Otomatis**: Memilih 5-8 lagu acak dari playlist/library/history user beserta liriknya, lengkap dengan kurasi lagu hits Indonesia & Internasional (Bernadya, Tulus, Sheila On 7, Mahalini, Coldplay, Dewa 19, NIKI, Hindia, Queen).
+            - **Soal TTS Kata Kunci**: Satu kata penting dihilangkan dari penggalan lirik lagu untuk ditebak pada kotak TTS interaktif dengan keyboard virtual terintegrasi.
+            - **Bantuan Audio 3 Detik**: Klik tombol bantuan audio pada soal untuk memutar potongan 3 detik lagu pas sebelum kata kunci dinyanyikan!
+            - **Kartu Skor Estetik & Share**: Setelah permainan selesai, muncul kartu skor estetik Liquid Glass yang siap di-share ke WhatsApp, TikTok, IG Story, dan X.
+            - **Peringkat & Statistik Jawara TTS**: Leaderboard otomatis mencatat jumlah game, kemenangan, streak, skor, dan gelar pencapaian (*Dewa Accretion, Pujangga Lirik, Master Karaoke*).
+          - **🏷️ NFC & QR Physical Merch Linker**:
+            - Studio pembuatan merchandise fisik dari lagu dan lirik favoritmu.
+            - 4 template estetik: **Piringan Hitam (Vinyl)**, **Poster Lirik Estetik**, **Kaset Pita Retro**, dan **Gantungan Kunci (Tag)**.
+            - Generate kode QR instan untuk ditempel pada poster, kaos, atau binder.
+            - Dukungan penulisan ke Tag NFC fisik langsung via Android NFC API.
           - **File APK**: Download file **Accretion.apk** (Release) atau **Accretion-debug.apk** langsung di bawah!"

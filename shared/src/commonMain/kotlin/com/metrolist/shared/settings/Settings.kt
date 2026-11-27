@@ -441,6 +441,11 @@ class Settings(
     var listeningStreakDays by preference("listeningStreakDays", 0)
     var lastListeningDate by preference("lastListeningDate", "")
 
+    var crosswordGamesPlayed by preference("crosswordGamesPlayed", 0)
+    var crosswordGamesWon by preference("crosswordGamesWon", 0)
+    var crosswordTotalScore by preference("crosswordTotalScore", 0)
+    var crosswordStreak by preference("crosswordStreak", 0)
+
     var hasCanvasToggle = false
 
     val isCanvasEnabled: Boolean
