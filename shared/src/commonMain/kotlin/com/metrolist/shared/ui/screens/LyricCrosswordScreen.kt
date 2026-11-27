@@ -80,7 +80,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-internal fun LyricCrosswordScreen(
+fun LyricCrosswordScreen(
     database: MusicDatabase?,
     playbackController: PlaybackController?,
     onBack: () -> Unit,

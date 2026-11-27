@@ -66,7 +66,7 @@ enum class MerchTemplate(val title: String, val icon: String) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun MerchLinkerScreen(
+fun MerchLinkerScreen(
     currentSong: SongItem?,
     onBack: () -> Unit,
     onShareMerch: (String) -> Unit,
