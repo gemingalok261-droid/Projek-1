@@ -34,7 +34,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -270,7 +269,7 @@ fun ExpressiveMiniPlayer(
                             }
                             if (isLoading && active) {
                                 val loadingText = stringResource(Res.string.loading)
-                                LoadingIndicator(
+                                com.metrolist.shared.ui.components.AccretionLoadingIndicator(
                                     modifier = Modifier.size(24.dp).semantics { contentDescription = loadingText },
                                     color = if (showProgress) Color.White else onContainer,
                                 )

@@ -73,7 +73,8 @@ enum class AppIcon(
     ZENITH_BLACK(
         aliasName = "MainActivityZenithBlack",
         labelRes = Res.string.app_icon_zenith_black,
-        previewRes = R.drawable.app_icon_zenith_black_full,
+        previewRes = R.drawable.app_icon_zenith_black_foreground,
+        previewBackgroundRes = R.drawable.app_icon_zenith_black_background,
     ),
     ZENITH_WHITE(
         aliasName = "MainActivityZenithWhite",
@@ -83,7 +84,8 @@ enum class AppIcon(
     GRADIENT(
         aliasName = "MainActivityGradient",
         labelRes = Res.string.app_icon_gradient,
-        previewRes = R.drawable.app_icon_gradient_full,
+        previewRes = R.drawable.app_icon_gradient_foreground,
+        previewBackgroundRes = R.drawable.app_icon_gradient_background,
     ),
     ;
 

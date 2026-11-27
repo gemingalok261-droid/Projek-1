@@ -1,0 +1,60 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Outer dashed orbit -->
+    <path
+        android:pathData="M26.5,54 A27.5,27.5 0 1,0 81.5,54 A27.5,27.5 0 1,0 26.5,54"
+        android:strokeWidth="1.0"
+        android:strokeColor="#80FFFFFF" />
+        
+    <!-- 40 Radial Equalizer Spectrum Bars -->
+    <path
+        android:pathData="M54.0,28.02L54.0,24.0 M58.0,28.75L58.69,24.37 M61.82,29.93L63.27,25.47 M65.48,31.48L67.62,27.27 M68.99,33.37L71.63,29.73 M72.34,35.66L75.21,32.79 M75.46,38.41L78.27,36.37 M78.2,41.67L80.73,40.38 M80.37,45.43L82.53,44.73 M81.77,49.6L83.63,49.31 M82.25,54.0L84.0,54.0 M81.77,58.4L83.63,58.69 M80.37,62.57L82.53,63.27 M78.2,66.33L80.73,67.62 M75.46,69.59L78.27,71.63 M72.34,72.34L75.21,75.21 M68.99,74.63L71.63,78.27 M65.48,76.52L67.62,80.73 M61.82,78.07L63.27,82.53 M58.0,79.25L58.69,83.63 M54.0,79.97L54.0,84.0 M49.86,80.12L49.31,83.63 M45.69,79.57L44.73,82.53 M41.65,78.24L40.38,80.73 M37.92,76.13L36.37,78.27 M34.69,73.31L32.79,75.21 M32.05,69.94L29.73,71.63 M30.07,66.19L27.27,67.62 M28.72,62.21L25.47,63.27 M27.95,58.13L24.37,58.69 M27.7,54.0L24.0,54.0 M27.95,49.87L24.37,49.31 M28.72,45.79L25.47,44.73 M30.07,41.81L27.27,40.38 M32.05,38.06L29.73,36.37 M34.69,34.69L32.79,32.79 M37.92,31.87L36.37,29.73 M41.65,29.76L40.38,27.27 M45.69,28.43L44.73,25.47 M49.86,27.88L49.31,24.37"
+        android:strokeWidth="1.3"
+        android:strokeLineCap="round"
+        android:strokeColor="#FFFFFFFF" />
+        
+    <!-- Tilted Accretion Disk (Back Arcs) -->
+    <group
+        android:pivotX="54"
+        android:pivotY="54"
+        android:rotation="-28">
+        <path
+            android:pathData="M29,54 A25,7.0 0 0,1 79,54"
+            android:strokeWidth="1.2"
+            android:strokeColor="#80FFFFFF" />
+        <path
+            android:pathData="M32,54 A22,6.0 0 0,1 76,54"
+            android:strokeWidth="3.2"
+            android:strokeColor="#FFFFFFFF" />
+    </group>
+    
+    <!-- Central Event Horizon & Singularity Core -->
+    <path
+        android:pathData="M42,54 A12,12 0 1,0 66,54 A12,12 0 1,0 42,54"
+        android:strokeWidth="1.5"
+        android:strokeColor="#80FFFFFF" />
+    <path
+        android:pathData="M44.5,54 A9.5,9.5 0 1,0 63.5,54 A9.5,9.5 0 1,0 44.5,54"
+        android:fillColor="#FF000000"
+        android:strokeWidth="2.2"
+        android:strokeColor="#FFFFFFFF" />
+
+    <!-- Tilted Accretion Disk (Front Arcs) -->
+    <group
+        android:pivotX="54"
+        android:pivotY="54"
+        android:rotation="-28">
+        <path
+            android:pathData="M76,54 A22,6.0 0 0,1 32,54"
+            android:strokeWidth="3.8"
+            android:strokeColor="#FFFFFFFF" />
+        <path
+            android:pathData="M79,54 A25,7.0 0 0,1 29,54"
+            android:strokeWidth="1.2"
+            android:strokeColor="#80FFFFFF" />
+    </group>
+</vector>

@@ -302,7 +302,7 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             ndk.debugSymbolLevel = "FULL"
-            manifestPlaceholders["appLabel"] = "Projek 1"
+            manifestPlaceholders["appLabel"] = "Accretion"
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
@@ -325,7 +325,7 @@ android {
         }
         debug {
             applicationIdSuffix = ".debug"
-            manifestPlaceholders["appLabel"] = "Projek 1"
+            manifestPlaceholders["appLabel"] = "Accretion"
         }
     }
 

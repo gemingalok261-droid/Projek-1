@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.union
+import com.metrolist.shared.ui.components.AccretionLoadingIndicator
 import androidx.compose.material3.CircularWavyProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LocalMinimumInteractiveComponentSize
@@ -208,8 +209,7 @@ class MainActivity : ComponentActivity() {
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterVertically),
                         ) {
-                            @OptIn(ExperimentalMaterial3ExpressiveApi::class)
-                            CircularWavyProgressIndicator()
+                            AccretionLoadingIndicator(size = 80.dp)
                             Text(stringResource(R.string.restore_in_progress))
                         }
                     }

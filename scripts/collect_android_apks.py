@@ -7,7 +7,7 @@ import re
 import shutil
 from pathlib import Path
 
-APK_NAMES = {"debug": "Projek-1-debug.apk", "release": "Projek-1.apk", "izzy": "Metrolist-izzy.apk"}
+APK_NAMES = {"debug": "Accretion-debug.apk", "release": "Accretion.apk", "izzy": "Metrolist-izzy.apk"}
 
 
 def collect(apk_dir: Path, destination: Path, version: str, variant: str) -> None:

@@ -1,4 +1,4 @@
-name: Build Projek 1 APK
+name: Build Accretion APK
 
 on:
   push:
@@ -38,8 +38,8 @@ jobs:
 
       - name: Generate Release Keystore
         run: |
-          keytool -genkeypair -v -keystore release.jks -alias projek1 -keyalg RSA -keysize 2048 -validity 10000 \
-            -storepass password123 -keypass password123 -dname "CN=Projek1, OU=Music, O=Projek1, L=Jakarta, ST=Jakarta, C=ID"
+          keytool -genkeypair -v -keystore release.jks -alias accretion -keyalg RSA -keysize 2048 -validity 10000 \
+            -storepass password123 -keypass password123 -dname "CN=Accretion, OU=Music, O=Accretion, L=Jakarta, ST=Jakarta, C=ID"
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
@@ -48,7 +48,7 @@ jobs:
         env:
           KEYSTORE_PATH: ${{ github.workspace }}/release.jks
           KEYSTORE_PASSWORD: password123
-          KEY_ALIAS: projek1
+          KEY_ALIAS: accretion
           KEY_PASSWORD: password123
         run: |
           ./gradlew :androidApp:assembleRelease :androidApp:assembleDebug --no-daemon --no-configuration-cache \
@@ -58,33 +58,33 @@ jobs:
       - name: Prepare APKs
         run: |
           mkdir -p dist
-          find androidApp/build/outputs/apk/release -type f -name "*.apk" -exec cp {} dist/Projek-1.apk \; 2>/dev/null || true
-          find androidApp/build/outputs/apk/debug -type f -name "*.apk" -exec cp {} dist/Projek-1-debug.apk \; 2>/dev/null || true
-          if [ ! -f dist/Projek-1.apk ]; then
-            find androidApp/build/outputs/apk -type f -name "*.apk" -exec cp {} dist/Projek-1.apk \;
+          find androidApp/build/outputs/apk/release -type f -name "*.apk" -exec cp {} dist/Accretion.apk \; 2>/dev/null || true
+          find androidApp/build/outputs/apk/debug -type f -name "*.apk" -exec cp {} dist/Accretion-debug.apk \; 2>/dev/null || true
+          if [ ! -f dist/Accretion.apk ]; then
+            find androidApp/build/outputs/apk -type f -name "*.apk" -exec cp {} dist/Accretion.apk \;
           fi
           ls -lh dist/
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Projek-1-APKs
+          name: Accretion-APKs
           path: dist/*.apk
 
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release delete v1.3.0 --yes 2>/dev/null || true
-          git tag -d v1.3.0 2>/dev/null || true
-          gh release create v1.3.0 dist/*.apk \
-            --title "Projek 1 v1.3.0 (Full iOS Liquid Glass & Dynamic Island)" \
-            --notes "### Projek 1 v1.3.0 - Full iOS Liquid Glass & Dynamic Island
+          gh release delete v1.4.0 --yes 2>/dev/null || true
+          git tag -d v1.4.0 2>/dev/null || true
+          gh release create v1.4.0 dist/*.apk \
+            --title "Accretion v1.4.0 (Cosmic Accretion Theme & Dynamic Voidbeat Loader)" \
+            --notes "### Accretion v1.4.0 - Cosmic Accretion Theme & Dynamic Voidbeat Loader
 
-          Pembaruan tampilan ala iPhone:
-          - **Full iOS Liquid Glass**: Antarmuka kaca cair transparan dengan border specular sheen dan blur mendalam.
-          - **Dynamic Island Mini Player**: Miniplayer melayang berbentuk kapsul kaca frosted dengan ring gelombang audio cairan dan tombol transparan.
-          - **Floating Island Dock**: Bilah navigasi bawah melayang (*Floating Pill Dock*) dengan aksen biru neon iOS (#0A84FF).
-          - **Squircle 28dp Album Art**: Sudut membulat squircle khas iOS dengan pantulan kilau tepi kaca.
-          - **Liquid Soundwave Scrubber**: Bar progress lagu bergelombang dinamis mengikuti aliran musik.
-          - **File APK**: Download file **Projek-1.apk** langsung di bawah!"
+          Pembaruan resmi Accretion:
+          - **Rebrand Resmi Accretion**: Seluruh identitas aplikasi diperbarui dari Projek 1 menjadi **Accretion**.
+          - **Dynamic Voidbeat Accretion Loader**: Indikator loading baru terinspirasi dari disk akresi lubang hitam relativistik dengan ring equalizer spektrum audio 56-bar dan infalling cosmic particles, sepenuhnya adaptif mengikuti warna tema yang aktif.
+          - **Ikon Baru Accretion**: Desain logo akresi kosmik modern dengan event horizon bercahaya, dukungan ikon dinamis Android (Material You Themed Icon), dan varian warna kustom di pengaturan.
+          - **Fluid Micro-Animations**: Animasi interaktif halus dan responsif di seluruh pemutar dan navigasi.
+          - **Full iOS Liquid Glass Player**: Antarmuka pemutar musik transparan ala Apple Music dengan Dynamic Island capsule miniplayer dan bilah navigasi floating dock.
+          - **File APK**: Download file **Accretion.apk** (Release) atau **Accretion-debug.apk** langsung di bawah!"

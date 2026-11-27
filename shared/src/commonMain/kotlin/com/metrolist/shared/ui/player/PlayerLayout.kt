@@ -12,6 +12,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandHorizontally
 import androidx.compose.animation.expandVertically
@@ -275,6 +276,14 @@ internal fun TabletPlayerContent(
                 ),
             label = "tabletLyricsDrawer",
         )
+        val artworkPlaybackScale by animateFloatAsState(
+            targetValue = if (isPlaying) 1.0f else 0.88f,
+            animationSpec = spring(
+                dampingRatio = 0.75f,
+                stiffness = 380f,
+            ),
+            label = "tabletArtworkScale",
+        )
 
         val drawerWidth = (maxWidth - horizontalPadding * 2f) / 2f
         val drawerWidthPx = with(LocalDensity.current) { drawerWidth.toPx() }
@@ -406,6 +415,10 @@ internal fun TabletPlayerContent(
                                     modifier =
                                         Modifier
                                             .requiredSize(artworkSize)
+                                            .graphicsLayer {
+                                                scaleX = artworkPlaybackScale
+                                                scaleY = artworkPlaybackScale
+                                            }
                                             .artworkSwipe(
                                                 enabled = artworkSwipeEnabled,
                                                 sensitivity = artworkSwipeSensitivity,
@@ -900,6 +913,14 @@ internal fun LandscapePlayerContent(
     )
     val hapticManager = rememberMetrolistHaptics()
     val platform = LocalPlayerPlatform.current
+    val artworkPlaybackScale by animateFloatAsState(
+        targetValue = if (isPlaying) 1.0f else 0.88f,
+        animationSpec = spring(
+            dampingRatio = 0.75f,
+            stiffness = 380f,
+        ),
+        label = "landscapeArtworkScale",
+    )
     val controlsVisible = !uiState.isLyricsExpanded || !Settings.shared.lyricsHideStatusBarInFullscreen
     val playerConnection = LocalPlayerSession.current
     val artworkSeekStepMs = Settings.shared.seekDurationSeconds * 1000L
@@ -1235,6 +1256,10 @@ internal fun LandscapePlayerContent(
                                         } else {
                                             Modifier
                                                 .requiredSize(artworkSize)
+                                                .graphicsLayer {
+                                                    scaleX = artworkPlaybackScale
+                                                    scaleY = artworkPlaybackScale
+                                                }
                                                 .artworkSwipe(
                                                     enabled = artworkSwipeEnabled,
                                                     sensitivity = artworkSwipeSensitivity,

@@ -36,7 +36,6 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -247,8 +246,8 @@ fun PlayerPrimaryControls(
         ) {
             Box(contentAlignment = Alignment.Center) {
                 if (isLoading && showLoadingIndicator) {
-                    LoadingIndicator(
-                        modifier = Modifier.size(28.dp).semantics { contentDescription = loadingText },
+                    AccretionLoadingIndicator(
+                        modifier = Modifier.size(36.dp).semantics { contentDescription = loadingText },
                         color = Color.White,
                     )
                 } else {
