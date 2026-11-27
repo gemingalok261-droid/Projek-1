@@ -12,6 +12,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -103,6 +104,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.LifecycleStartEffect
 import coil3.SingletonImageLoader
 import coil3.compose.LocalPlatformContext
@@ -417,7 +419,7 @@ fun MobileApp(
             if (Settings.shared.showBottomNavHome) add(MobileRoute.Home)
             if (Settings.shared.showBottomNavSearch) add(MobileRoute.Search)
             if (Settings.shared.showBottomNavLibrary) add(MobileRoute.Library)
-            if (isEmpty()) add(MobileRoute.EasterEgg)
+            add(MobileRoute.EasterEgg)
         }
     val defaultTab =
         when (defaultOpenTabRoot(Settings.shared.defaultOpenTab)) {
@@ -782,9 +784,9 @@ fun MobileApp(
             ),
             AdaptiveNavigationItem<MobileRoute>(
                 MobileRoute.EasterEgg,
-                stringResource(Res.string.mysterious_fourth_tab),
-                MetrolistIcons.Filled.QuestionMark,
-                MetrolistIcons.Filled.QuestionMark,
+                "Arcade",
+                MetrolistIcons.Filled.SportsEsports,
+                MetrolistIcons.Filled.SportsEsports,
             ),
         ).filter { it.key in visibleTabRoutes }
 
@@ -864,27 +866,57 @@ fun MobileApp(
                         if (isTopLevelRoute) {
                             TopAppBar(
                                 title = {
-                                    Text(
-                                        text =
-                                            when (selectedTab) {
-                                                MobileRoute.Home -> {
-                                                    stringResource(Res.string.home)
-                                                }
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Text(
+                                            text =
+                                                when (selectedTab) {
+                                                    MobileRoute.Home -> {
+                                                        "Accretion"
+                                                    }
 
-                                                MobileRoute.Library -> {
-                                                    stringResource(Res.string.filter_library)
-                                                }
+                                                    MobileRoute.Library -> {
+                                                        stringResource(Res.string.filter_library)
+                                                    }
 
-                                                MobileRoute.EasterEgg -> {
-                                                    stringResource(Res.string.mysterious_fourth_tab)
-                                                }
+                                                    MobileRoute.EasterEgg -> {
+                                                        "Arcade"
+                                                    }
 
-                                                else -> {
-                                                    ""
+                                                    else -> {
+                                                        ""
+                                                    }
+                                                },
+                                            style = MaterialTheme.typography.titleLargeEmphasized,
+                                        )
+
+                                        if (selectedTab == MobileRoute.Home) {
+                                            Spacer(Modifier.width(10.dp))
+                                            val streakDays = Settings.shared.listeningStreakDays
+                                            val isStreakActive = streakDays > 0
+                                            Surface(
+                                                shape = RoundedCornerShape(12.dp),
+                                                color = if (isStreakActive) Color(0xFFFF6D00).copy(alpha = 0.2f) else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f),
+                                                border = BorderStroke(
+                                                    1.dp,
+                                                    if (isStreakActive) Color(0xFFFF9100).copy(alpha = 0.5f) else Color.Gray.copy(alpha = 0.25f),
+                                                ),
+                                                modifier = Modifier.clip(RoundedCornerShape(12.dp)).clickable { open(MobileRoute.Crossword) },
+                                            ) {
+                                                Row(
+                                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                                                    verticalAlignment = Alignment.CenterVertically,
+                                                ) {
+                                                    Text("🔥", fontSize = 13.sp)
+                                                    Spacer(Modifier.width(4.dp))
+                                                    Text(
+                                                        text = if (isStreakActive) "$streakDays Hari" else "1 Hari",
+                                                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                                        color = if (isStreakActive) Color(0xFFFF9100) else MaterialTheme.colorScheme.onSurfaceVariant,
+                                                    )
                                                 }
-                                            },
-                                        style = MaterialTheme.typography.titleLargeEmphasized,
-                                    )
+                                            }
+                                        }
+                                    }
                                 },
                                 subtitle = {
                                     if (selectedTab == MobileRoute.Home && !playbackNetworkState.connected) {
@@ -1120,6 +1152,12 @@ fun MobileApp(
                                                 onLoadMore = homeViewModel::loadMoreSections,
                                                 modifier = Modifier.fillMaxSize(),
                                                 header = {
+                                                    item(key = "welcome_streak_banner") {
+                                                        com.metrolist.shared.ui.components.AccretionWelcomeStreakBanner(
+                                                            onOpenCrossword = { open(MobileRoute.Crossword) },
+                                                            onOpenMerchLinker = { open(MobileRoute.MerchLinker(playbackState.currentSong)) },
+                                                        )
+                                                    }
                                                     if (homeState.error != null) {
                                                         item(key = "home_error") {
                                                             Column(
@@ -1145,12 +1183,6 @@ fun MobileApp(
                                                                 modifier = Modifier.padding(top = MdSpacing.xs + MdSpacing.xxs),
                                                             )
                                                         }
-                                                    }
-                                                    item(key = "welcome_streak_banner") {
-                                                        com.metrolist.shared.ui.components.AccretionWelcomeStreakBanner(
-                                                            onOpenCrossword = { open(MobileRoute.Crossword) },
-                                                            onOpenMerchLinker = { open(MobileRoute.MerchLinker(playbackState.currentSong)) },
-                                                        )
                                                     }
                                                     item(key = "wrapped_card") {
                                                         WrappedHomeCard(

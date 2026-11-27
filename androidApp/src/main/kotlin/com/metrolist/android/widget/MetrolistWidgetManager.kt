@@ -32,6 +32,7 @@ import coil3.toBitmap
 import com.metrolist.android.R
 import com.metrolist.android.playback.MusicService
 import com.metrolist.android.ui.theme.extractThemeColor
+import com.metrolist.shared.settings.Settings
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -376,6 +377,17 @@ class MetrolistWidgetManager(
         controls: WidgetControls,
         schemes: WidgetColorSchemes,
     ): MusicWidgetRemoteViews {
+        val streakDays = Settings.shared.listeningStreakDays
+        val streakSuffix = if (streakDays > 0) " • 🔥 $streakDays Hari" else " • 🔥 1 Hari"
+        val notPlayingText = context.getString(R.string.not_playing)
+        val tapToPlayText = context.getString(R.string.tap_to_play)
+        val displayTitle = if (title == notPlayingText || title.isBlank()) "Accretion" else title
+        val displayArtist = if (artist.isBlank() || artist == tapToPlayText) {
+            if (streakDays > 0) "🔥 Streak: $streakDays Hari • Ketuk putar" else "🔥 Nyalakan streak musik hari ini!"
+        } else {
+            artist + streakSuffix
+        }
+
         fun create(
             width: Int,
             height: Int,
@@ -388,17 +400,17 @@ class MetrolistWidgetManager(
                     }
 
                     MusicWidgetLayout.COMPACT -> {
-                        createCompactRemoteViews(title, artist, albumArt, duration, currentPosition, policy.showArtwork)
+                        createCompactRemoteViews(displayTitle, displayArtist, albumArt, duration, currentPosition, policy.showArtwork)
                     }
 
                     MusicWidgetLayout.WIDE -> {
-                        createCompactWideRemoteViews(title, artist, albumArt, policy.showArtwork)
+                        createCompactWideRemoteViews(displayTitle, displayArtist, albumArt, policy.showArtwork)
                     }
 
                     MusicWidgetLayout.SQUARE -> {
                         createCompactSquareRemoteViews(
-                            title,
-                            artist,
+                            displayTitle,
+                            displayArtist,
                             albumArt,
                             duration,
                             currentPosition,
@@ -408,7 +420,7 @@ class MetrolistWidgetManager(
                     }
 
                     MusicWidgetLayout.PLAYER -> {
-                        createPlayerRemoteViews(title, artist, albumArt, duration, currentPosition)
+                        createPlayerRemoteViews(displayTitle, displayArtist, albumArt, duration, currentPosition)
                     }
                 }
             bindMusicControls(views, policy.layout, controls, isLiked)

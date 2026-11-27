@@ -36,17 +36,12 @@ jobs:
         run: |
           yes | sdkmanager --licenses || true
 
-      - name: Generate Release Keystore
-        run: |
-          keytool -genkeypair -v -keystore release.jks -alias accretion -keyalg RSA -keysize 2048 -validity 10000 \
-            -storepass password123 -keypass password123 -dname "CN=Accretion, OU=Music, O=Accretion, L=Jakarta, ST=Jakarta, C=ID"
-
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
       - name: Build APK (Release & Debug)
         env:
-          KEYSTORE_PATH: ${{ github.workspace }}/release.jks
+          KEYSTORE_PATH: ${{ github.workspace }}/accretion-release.jks
           KEYSTORE_PASSWORD: password123
           KEY_ALIAS: accretion
           KEY_PASSWORD: password123
@@ -75,22 +70,15 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release delete v1.4.3 --yes 2>/dev/null || true
-          git tag -d v1.4.3 2>/dev/null || true
-          gh release create v1.4.3 dist/*.apk \
-            --title "Accretion v1.4.3 (Lyric Crossword Ray, Bantuan Audio, Leaderboard & NFC/QR Merch Linker)" \
-            --notes "### Accretion v1.4.3 - Lyric Crossword Ray, Bantuan Audio, Leaderboard & NFC/QR Merch Linker
+          gh release delete v1.4.4 --yes 2>/dev/null || true
+          git tag -d v1.4.4 2>/dev/null || true
+          gh release create v1.4.4 dist/*.apk \
+            --title "Accretion v1.4.4 (Streak Api di Widget & TopBar, Banner Beranda, Tab Arcade & Keystore Tetap)" \
+            --notes "### Accretion v1.4.4 - Streak Api di Widget & TopBar, Banner Beranda, Tab Arcade & Keystore Tetap
 
-          Pembaruan besar Accretion v1.4.3:
-          - **🧩 Lyric Crossword Ray (TTS Lirik Musik)**:
-            - **Ambil Data Otomatis**: Memilih 5-8 lagu acak dari playlist/library/history user beserta liriknya, lengkap dengan kurasi lagu hits Indonesia & Internasional (Bernadya, Tulus, Sheila On 7, Mahalini, Coldplay, Dewa 19, NIKI, Hindia, Queen).
-            - **Soal TTS Kata Kunci**: Satu kata penting dihilangkan dari penggalan lirik lagu untuk ditebak pada kotak TTS interaktif dengan keyboard virtual terintegrasi.
-            - **Bantuan Audio 3 Detik**: Klik tombol bantuan audio pada soal untuk memutar potongan 3 detik lagu pas sebelum kata kunci dinyanyikan!
-            - **Kartu Skor Estetik & Share**: Setelah permainan selesai, muncul kartu skor estetik Liquid Glass yang siap di-share ke WhatsApp, TikTok, IG Story, dan X.
-            - **Peringkat & Statistik Jawara TTS**: Leaderboard otomatis mencatat jumlah game, kemenangan, streak, skor, dan gelar pencapaian (*Dewa Accretion, Pujangga Lirik, Master Karaoke*).
-          - **🏷️ NFC & QR Physical Merch Linker**:
-            - Studio pembuatan merchandise fisik dari lagu dan lirik favoritmu.
-            - 4 template estetik: **Piringan Hitam (Vinyl)**, **Poster Lirik Estetik**, **Kaset Pita Retro**, dan **Gantungan Kunci (Tag)**.
-            - Generate kode QR instan untuk ditempel pada poster, kaos, atau binder.
-            - Dukungan penulisan ke Tag NFC fisik langsung via Android NFC API.
-          - **File APK**: Download file **Accretion.apk** (Release) atau **Accretion-debug.apk** langsung di bawah!"
+          Pembaruan resmi Accretion v1.4.4:
+          - **🔥 Streak Api di Widget Android**: Widget Android Home Screen bawaan (Player, Compact, Wide, Square) sekarang resmi terintegrasi dengan penghitung streak api musik ('🔥 X Hari').
+          - **🔥 Lencana Api di TopAppBar Beranda**: Bilah atas Beranda kini selalu menampilkan lencana interaktif '[ 🔥 X Hari ]' yang langsung bisa diklik untuk menuju game TTS Lirik.
+          - **✨ Kartu Sambutan & Streak di Paling Atas Beranda**: Banner sambutan api dipindahkan ke urutan teratas sebelum chip agar langsung terlihat tanpa tertutup atau tergeser.
+          - **🎮 Tab Arcade di Navigasi Bawah**: Tab ke-4 langsung aktif di bilah navigasi bawah dengan ikon Arcade untuk akses cepat ke TTS Lirik Ray dan Merch Linker.
+          - **🔑 Keystore Rilis Permanen**: Penandatanganan APK kini menggunakan keystore permanen terverifikasi sehingga update ke versi berikutnya tidak akan mengalami konflik signature."
