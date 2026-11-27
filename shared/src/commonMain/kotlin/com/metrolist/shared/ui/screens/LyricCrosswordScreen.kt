@@ -70,8 +70,8 @@ import com.metrolist.shared.crossword.CrosswordClue
 import com.metrolist.shared.crossword.CrosswordStats
 import com.metrolist.shared.crossword.LyricCrosswordGenerator
 import com.metrolist.shared.db.MusicDatabase
-import com.metrolist.shared.haptics.HapticEvent
-import com.metrolist.shared.haptics.rememberMetrolistHaptics
+import com.metrolist.shared.ui.haptics.HapticEvent
+import com.metrolist.shared.ui.haptics.rememberMetrolistHaptics
 import com.metrolist.shared.settings.Settings
 import com.metrolist.shared.ui.icons.MetrolistIcons
 import com.metrolist.shared.ui.playback.PlaybackController
@@ -219,7 +219,7 @@ internal fun LyricCrosswordScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(MetrolistIcons.AutoMirrored.Rounded.ArrowBack, contentDescription = "Kembali")
+                        Icon(MetrolistIcons.AutoMirrored.Filled.ArrowBack, contentDescription = "Kembali")
                     }
                 },
                 actions = {
@@ -316,7 +316,7 @@ internal fun LyricCrosswordScreen(
                                     if (isSolved) {
                                         Spacer(Modifier.width(4.dp))
                                         Icon(
-                                            imageVector = MetrolistIcons.Rounded.Check,
+                                            imageVector = MetrolistIcons.Filled.Check,
                                             contentDescription = null,
                                             modifier = Modifier.size(16.dp),
                                         )
@@ -521,7 +521,7 @@ internal fun LyricCrosswordScreen(
 
                     Column(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(6.dp),
                     ) {
                         rows.forEachIndexed { rowIndex, rowStr ->

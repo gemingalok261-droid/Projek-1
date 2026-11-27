@@ -7,6 +7,7 @@ import com.metrolist.shared.model.BuiltinPlaylist
 import com.metrolist.shared.model.HomeSection
 import com.metrolist.shared.model.PlaylistItem
 import com.metrolist.shared.model.PodcastItem
+import com.metrolist.shared.model.SongItem
 import com.metrolist.shared.model.YTItem
 import com.metrolist.shared.ui.components.CollectionPreviews
 import com.metrolist.shared.ui.navigation.Screen
@@ -354,6 +355,8 @@ internal val MobileRoute.motionScreen: Screen
             MobileRoute.Search -> Screen.Search
             MobileRoute.Library -> Screen.Library
             MobileRoute.EasterEgg -> Screen.EasterEgg
+            MobileRoute.Crossword -> Screen.EasterEgg
+            is MobileRoute.MerchLinker -> Screen.EasterEgg
             is MobileRoute.Settings -> Screen.Settings
             MobileRoute.History -> Screen.History
             MobileRoute.Statistics -> Screen.Statistics

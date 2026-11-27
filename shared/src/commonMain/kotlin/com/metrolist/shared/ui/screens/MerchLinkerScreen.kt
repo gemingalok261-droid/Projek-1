@@ -51,8 +51,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import com.metrolist.shared.haptics.HapticEvent
-import com.metrolist.shared.haptics.rememberMetrolistHaptics
+import com.metrolist.shared.ui.haptics.HapticEvent
+import com.metrolist.shared.ui.haptics.rememberMetrolistHaptics
+import io.ktor.http.encodeURLParameter
 import com.metrolist.shared.model.SongItem
 import com.metrolist.shared.ui.icons.MetrolistIcons
 
@@ -82,7 +83,7 @@ internal fun MerchLinkerScreen(
     val artworkUrl = currentSong?.thumbnail ?: "https://files.catbox.moe/ttm6ek.jpg"
 
     val targetUrl = "https://music.youtube.com/watch?v=$songId"
-    val qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?size=350x350&margin=12&data=${io.ktor.http.encodeURLQueryComponent(targetUrl)}"
+    val qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?size=350x350&margin=12&data=${targetUrl.encodeURLParameter()}"
 
     Scaffold(
         topBar = {
@@ -106,7 +107,7 @@ internal fun MerchLinkerScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(MetrolistIcons.AutoMirrored.Rounded.ArrowBack, contentDescription = "Kembali")
+                        Icon(MetrolistIcons.AutoMirrored.Filled.ArrowBack, contentDescription = "Kembali")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
