@@ -97,17 +97,13 @@ internal fun SettingsUiRegistryBuilder.registerAppearanceSettings(host: SharedSe
             ) { id ->
                 settings.themeMode = ThemeMode.valueOf(id)
             }
-            val appIconChoices = host.hostChoices[SettingsHostChoice.APP_ICON].orEmpty()
-            if (appIconChoices.isNotEmpty()) {
-                val selectedIconLabel = appIconChoices.firstOrNull { it.id == settings.appIcon }?.label
-                choice(
-                    id = "appIcon",
-                    title = stringResource(Res.string.appearance_app_icon),
-                    description = stringResource(Res.string.appearance_app_icon_credit),
-                    valueLabel = selectedIconLabel,
-                    choices = appIconChoices,
-                    selectedChoiceId = settings.appIcon,
-                ) { host.onHostChoiceSelected(SettingsHostChoice.APP_ICON, it) }
+            if (host.platform == SettingsPlatform.ANDROID) {
+                switch(
+                    id = "forceHighRefreshRate",
+                    title = "Paksa FPS Tinggi",
+                    description = "Memaksimalkan refresh rate layar (90Hz/120Hz) ke mode puncak agar animasi halus tanpa lag.",
+                    checked = settings.forceHighRefreshRate,
+                ) { settings.forceHighRefreshRate = it }
             }
             if (host.platform == SettingsPlatform.DESKTOP) {
                 switch(
@@ -983,6 +979,14 @@ internal fun SettingsUiRegistryBuilder.registerAppearanceSettings(host: SharedSe
                         checked = settings.showExpressiveMiniPlayerLikeButton,
                         description = stringResource(Res.string.settings_mini_player_control_summary),
                     ) { settings.showExpressiveMiniPlayerLikeButton = it }
+                    if (host.platform == SettingsPlatform.ANDROID) {
+                        switch(
+                            id = "enableDynamicIslandOverlay",
+                            title = "Izin Overlay Dynamic Island",
+                            checked = settings.enableDynamicIslandOverlay,
+                            description = "Menampilkan Dynamic Island mengambang di atas aplikasi lain (memerlukan izin Tampilkan di Atas Aplikasi Lain).",
+                        ) { settings.enableDynamicIslandOverlay = it }
+                    }
                 }
             }
             if (settings.miniPlayerType == MiniPlayerType.MODERN) {

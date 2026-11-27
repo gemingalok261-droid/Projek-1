@@ -436,6 +436,11 @@ class Settings(
 
     var playerCanvasEnabled by preference(false)
 
+    var forceHighRefreshRate by preference("forceHighRefreshRate", true)
+    var enableDynamicIslandOverlay by preference("enableDynamicIslandOverlay", false)
+    var listeningStreakDays by preference("listeningStreakDays", 0)
+    var lastListeningDate by preference("lastListeningDate", "")
+
     var hasCanvasToggle = false
 
     val isCanvasEnabled: Boolean
@@ -444,7 +449,7 @@ class Settings(
     val isAnimatedArtworkOrCanvasEnabled: Boolean
         get() = isCanvasEnabled || enableAnimatedCovers
 
-    var audioQuality by preference("AUTO")
+    var audioQuality by preference("HIGH")
     var audioNormalization by preference(false)
     var loudnessLevel by preference(LoudnessLevelKey, LoudnessLevel.BALANCED)
     var volume by preference(0.7f)

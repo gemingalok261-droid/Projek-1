@@ -188,4 +188,4 @@ internal fun RemoteViews.setWidgetProgressTint(
     }
 }
 
-internal fun widgetSurfaceRole(scheme: ColorScheme): Color = Color.Black
+internal fun widgetSurfaceRole(scheme: ColorScheme): Color = if (scheme.surface == Color.Black) Color.Black else scheme.surfaceContainer

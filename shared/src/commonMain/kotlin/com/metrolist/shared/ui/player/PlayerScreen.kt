@@ -915,7 +915,7 @@ fun PlayerScreen(
                 if (!useLandscapeLayout && uiState.isLyricsExpanded) {
                     viewModel.setLyricsVisible(false)
                 }
-                if (queueSheetState.isExpanded || queueSheetState.isSettledExpanded || queueSheetState.targetAnchor == EXPANDED_ANCHOR) {
+                if (queueSheetState.value >= queueSheetState.expandedBound - 10.dp) {
                     queueSheetState.collapseSoft()
                 } else {
                     queueSheetState.expandSoft()

@@ -75,20 +75,22 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release delete v1.4.1 --yes 2>/dev/null || true
-          git tag -d v1.4.1 2>/dev/null || true
-          gh release create v1.4.1 dist/*.apk \
-            --title "Accretion v1.4.1 (Bug Fixes, Team Info & Player Polish)" \
-            --notes "### Accretion v1.4.1 - Bug Fixes, Team Info & Player Polish
+          gh release delete v1.4.2 --yes 2>/dev/null || true
+          git tag -d v1.4.2 2>/dev/null || true
+          gh release create v1.4.2 dist/*.apk \
+            --title "Accretion v1.4.2 (Streak Api, High FPS, Queue Fix & Release Updates)" \
+            --notes "### Accretion v1.4.2 - Streak Api, High FPS, Queue Fix & Release Updates
 
-          Pembaruan resmi Accretion v1.4.1:
-          - **Fix App Icon Switcher Crash**: Memperbaiki masalah crash saat memilih dan mengganti ikon aplikasi di menu Pengaturan dengan resolusi nama komponen dinamis dan error handling yang aman.
-          - **Fix Tombol Antrean (Queue Button)**: Tombol antrean kini responsif dan mendukung fungsi toggle (membuka antrean jika tertutup, menutup antrean jika sedang terbuka) serta fallback animasi yang andal.
-          - **Pembersihan Player Button Bubbles**: Menghapus bingkai/bubble pada tombol pemutar (Previous, Play/Pause, Next) untuk tampilan yang lebih bersih dan elegan ala Apple Music.
-          - **Widget Default Metrolist**: Mengembalikan konfigurasi dan tampilan widget kembali ke standar bawaan Metrolist.
-          - **Pembaruan Info Pengembang & Tim**:
-            - **Pemimpin**: Antigravity (Pengembangan Utama) dengan avatar AI Antigravity.
-            - **Pengembang**: Ray (@rayytampann) dengan tombol profil TikTok dan modal sponsor QRIS.
-            - **Kolaborator**: Ganzvlty (@ganzvlty) dengan peran 'Mencari Bug Dan Mencari Ide' dan tautan TikTok.
-            - **Tautan Komunitas**: Ikon Discord, Telegram, dan GitHub dijadikan hiasan dekoratif (tanpa redirect).
+          Pembaruan resmi Accretion v1.4.2:
+          - **Fix Tombol Antrean (Queue Button)**: Tombol antrean di pemutar musik diperbaiki secara tuntas dengan sinkronisasi posisi real-time tanpa konflik anchor state.
+          - **Hapus Opsi Ganti Logo Aplikasi**: Opsi pemilihan ikon aplikasi dihapus sepenuhnya dari Pengaturan Tampilan untuk stabilitas maksimal.
+          - **Fitur Streak Api Musik (🔥)**: Penghitung hari mendengarkan musik beruntun dengan kartu sambutan di beranda. Ikon api menyala membara setiap hari kamu memutar musik!
+          - **Paksa FPS Tinggi (90Hz / 120Hz)**: Sakelar baru di Pengaturan Tampilan untuk memaksimalkan refresh rate layar ke mode puncak agar animasi halus lancar tanpa lag dan aman untuk perangkat.
+          - **Widget 100% Default Metrolist**: Tampilan dan logika widget dikembalikan sepenuhnya sesuai kode standar bawaan repositori Metrolist.
+          - **Izin Overlay Dynamic Island**: Penambahan izin \`SYSTEM_ALERT_WINDOW\` serta tombol pengaturan untuk mengizinkan tampilan Dynamic Island mengambang di atas aplikasi lain ala iPhone.
+          - **Pengalihan Pembaruan Aplikasi**: Pengecekan pembaruan otomatis aplikasi dialihkan langsung ke rilis repositori \`gemingalok261-droid/Projek-1\`.
+          - **Pembaruan Halaman Tentang**:
+            - Avatar Antigravity & Ray diperbarui dengan gambar berkualitas tinggi terbaru.
+            - Tombol TikTok berlabel ringkas 'TikTok' tanpa nama pengguna.
+            - Ikon tombol sponsor diubah menjadi secangkir kopi dengan judul 'Sponsor Pengembangan'.
           - **File APK**: Download file **Accretion.apk** (Release) atau **Accretion-debug.apk** langsung di bawah!"

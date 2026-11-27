@@ -797,6 +797,13 @@ fun MobileApp(
         }
     var playerSheetSettled by remember { mutableStateOf(false) }
     val playbackState = playerState
+
+    LaunchedEffect(playbackState.isPlaying, playbackState.currentSong?.id) {
+        if (playbackState.isPlaying && playbackState.currentSong != null) {
+            com.metrolist.shared.playback.StreakTracker.recordListeningSession()
+        }
+    }
+
     val artworkSeedColor =
         rememberArtworkSeedColor(
             playbackState.currentSong
@@ -1135,6 +1142,9 @@ fun MobileApp(
                                                                 modifier = Modifier.padding(top = MdSpacing.xs + MdSpacing.xxs),
                                                             )
                                                         }
+                                                    }
+                                                    item(key = "welcome_streak_banner") {
+                                                        com.metrolist.shared.ui.components.AccretionWelcomeStreakBanner()
                                                     }
                                                     item(key = "wrapped_card") {
                                                         WrappedHomeCard(

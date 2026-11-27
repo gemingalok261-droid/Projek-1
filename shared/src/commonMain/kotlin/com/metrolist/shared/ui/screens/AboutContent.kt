@@ -157,7 +157,7 @@ object AboutContributors {
             tiktokUrl = "https://www.tiktok.com/@rayytampann",
             isSponsorQris = true,
             avatarShape = AboutAvatarShape.COOKIE_9_SIDED,
-            customAvatarUrl = "https://files.catbox.moe/9uqv2p.jpg",
+            customAvatarUrl = "https://files.catbox.moe/ttm6ek.jpg",
             drawableRes = Res.drawable.avatar_ray,
         )
 
@@ -168,6 +168,7 @@ object AboutContributors {
                 role = AboutContributorRole.CREATOR,
                 customRoleLabel = "Pengembangan Utama",
                 avatarShape = AboutAvatarShape.SUNNY,
+                customAvatarUrl = "https://files.catbox.moe/483cic.jpg",
                 drawableRes = Res.drawable.avatar_antigravity,
             ),
         )
@@ -204,7 +205,7 @@ val aboutCommunityLinks: List<AboutCommunityLink> =
     listOf(
         AboutCommunityLink(AboutCommunityLinkKind.DISCORD, "https://discord.com/invite/zrdbeRG2Mt"),
         AboutCommunityLink(AboutCommunityLinkKind.TELEGRAM, "https://t.me/metrolistapp"),
-        AboutCommunityLink(AboutCommunityLinkKind.REPOSITORY, "https://github.com/MetrolistGroup/Metrolist"),
+        AboutCommunityLink(AboutCommunityLinkKind.REPOSITORY, "https://github.com/gemingalok261-droid/Projek-1"),
     )
 
 val aboutLicenseLink: AboutCommunityLink =
@@ -411,7 +412,7 @@ fun AuthorInfoSheet(
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = if (!contributor.tiktokHandle.isNullOrBlank()) "TikTok (@${contributor.tiktokHandle})" else "TikTok",
+                                text = "TikTok",
                                 color = colorScheme.onPrimaryContainer,
                                 fontWeight = FontWeight.Medium,
                             )
@@ -464,14 +465,14 @@ fun AuthorInfoSheet(
                             horizontalArrangement = Arrangement.Center,
                         ) {
                             Icon(
-                                imageVector = MetrolistIcons.Rounded.Favorite,
+                                imageVector = MetrolistIconsBrand.BuyMeACoffee,
                                 contentDescription = null,
                                 tint = colorScheme.onSecondaryContainer,
                                 modifier = Modifier.size(20.dp),
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "Sponsor Pengembangan (QRIS)",
+                                text = "Sponsor Pengembangan",
                                 color = colorScheme.onSecondaryContainer,
                                 fontWeight = FontWeight.Medium,
                             )

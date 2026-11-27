@@ -171,7 +171,56 @@ class MainActivity : ComponentActivity() {
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
-        if (hasFocus) showStartupRecovery()
+        if (hasFocus) {
+            showStartupRecovery()
+            applyHighRefreshRate(Settings.shared.forceHighRefreshRate)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        applyHighRefreshRate(Settings.shared.forceHighRefreshRate)
+        checkOverlayPermission()
+    }
+
+    private fun checkOverlayPermission() {
+        if (Settings.shared.enableDynamicIslandOverlay && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!android.provider.Settings.canDrawOverlays(this)) {
+                try {
+                    val intent =
+                        Intent(
+                            android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                            android.net.Uri.parse("package:$packageName"),
+                        )
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    Log.w("MainActivity", "Failed to launch overlay permission intent", e)
+                }
+            }
+        }
+    }
+
+    private fun applyHighRefreshRate(force: Boolean) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val params = window.attributes
+            if (force) {
+                val display =
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        display
+                    } else {
+                        @Suppress("DEPRECATION")
+                        window.windowManager.defaultDisplay
+                    }
+                val modes = display?.supportedModes
+                val peakMode = modes?.maxByOrNull { it.refreshRate }
+                if (peakMode != null && peakMode.modeId != 0) {
+                    params.preferredDisplayModeId = peakMode.modeId
+                }
+            } else {
+                params.preferredDisplayModeId = 0
+            }
+            window.attributes = params
+        }
     }
 
     private fun showStartupRecovery() {
@@ -195,6 +244,7 @@ class MainActivity : ComponentActivity() {
         setIntent(pendingIntent ?: Intent(this, MainActivity::class.java))
         isInPipModeState.value = isInPictureInPictureMode
         WindowCompat.enableEdgeToEdge(window)
+        applyHighRefreshRate(Settings.shared.forceHighRefreshRate)
         val lightSystemBars = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK != Configuration.UI_MODE_NIGHT_YES
         WindowCompat.getInsetsController(window, window.decorView).apply {
             isAppearanceLightStatusBars = lightSystemBars
