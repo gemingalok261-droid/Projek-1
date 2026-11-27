@@ -166,7 +166,7 @@ internal fun LyricCrosswordScreen(
             // Check if correct
             if (updated.equals(clue.answer, ignoreCase = true)) {
                 solvedClues[clue.id] = true
-                haptic.perform(HapticEvent.RELEASE)
+                haptic.perform(HapticEvent.CONFIRM)
 
                 // Check if all solved
                 val allDone = clues.all { solvedClues[it.id] == true }
