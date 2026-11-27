@@ -1,7 +1,7 @@
 package com.metrolist.shared.playback
 
 import com.metrolist.shared.settings.Settings
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -30,18 +30,18 @@ object StreakTracker {
 
         val daysDiff = today.toEpochDays() - lastDate.toEpochDays()
         when {
-            daysDiff == 0 -> {
+            daysDiff == 0L -> {
                 // Already listened today! If for some reason streak is 0, make it at least 1
                 if (currentStreak < 1) {
                     Settings.shared.listeningStreakDays = 1
                 }
             }
-            daysDiff == 1 -> {
+            daysDiff == 1L -> {
                 // Consecutive day! Increment streak!
                 Settings.shared.listeningStreakDays = (currentStreak + 1).coerceAtLeast(1)
                 Settings.shared.lastListeningDate = today.toString()
             }
-            daysDiff > 1 -> {
+            daysDiff > 1L -> {
                 // Streak broken; reset streak to 1 for today
                 Settings.shared.listeningStreakDays = 1
                 Settings.shared.lastListeningDate = today.toString()
