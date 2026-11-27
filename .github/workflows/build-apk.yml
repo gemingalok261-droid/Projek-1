@@ -75,15 +75,16 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release delete v1.2.0 --yes 2>/dev/null || true
-          git tag -d v1.2.0 2>/dev/null || true
-          gh release create v1.2.0 dist/*.apk \
-            --title "Projek 1 v1.2.0 (Liquid Glass & Blue Theme)" \
-            --notes "### Projek 1 v1.2.0 - Liquid Glass & Blue Theme Redesign
+          gh release delete v1.3.0 --yes 2>/dev/null || true
+          git tag -d v1.3.0 2>/dev/null || true
+          gh release create v1.3.0 dist/*.apk \
+            --title "Projek 1 v1.3.0 (Full iOS Liquid Glass & Dynamic Island)" \
+            --notes "### Projek 1 v1.3.0 - Full iOS Liquid Glass & Dynamic Island
 
-          Pembaruan tampilan dan tema:
-          - **Ikon Monokrom**: Menggantikan identitas lama dengan ikon hitam-putih yang minimalis dan elegan.
-          - **Warna Aksen Biru**: Tab aktif pada bilah navigasi dan indikator menu kini menggunakan aksen biru vibrant.
-          - **Widget Baru Berlatar Hitam**: Seluruh widget tampil lebih segar dengan latar belakang hitam murni (Pure Black) dan border Liquid Glass.
-          - **Estetika Cairan & Liquid Glass**: Pemutar lagu dengan efek cairan getaran gelombang suara (Liquid Background) dan Wavy Scrubber, serta tombol melingkar frosted glass.
+          Pembaruan tampilan ala iPhone:
+          - **Full iOS Liquid Glass**: Antarmuka kaca cair transparan dengan border specular sheen dan blur mendalam.
+          - **Dynamic Island Mini Player**: Miniplayer melayang berbentuk kapsul kaca frosted dengan ring gelombang audio cairan dan tombol transparan.
+          - **Floating Island Dock**: Bilah navigasi bawah melayang (*Floating Pill Dock*) dengan aksen biru neon iOS (#0A84FF).
+          - **Squircle 28dp Album Art**: Sudut membulat squircle khas iOS dengan pantulan kilau tepi kaca.
+          - **Liquid Soundwave Scrubber**: Bar progress lagu bergelombang dinamis mengikuti aliran musik.
           - **File APK**: Download file **Projek-1.apk** langsung di bawah!"

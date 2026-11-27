@@ -10,7 +10,9 @@ package com.metrolist.shared.ui.design.expressive.components
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.horizontalScroll
@@ -135,8 +137,8 @@ fun ExpressiveMiniPlayer(
     val buttons = settings.expressiveMiniPlayerButtons
     val haptics = rememberMetrolistHaptics()
     val scheme = MaterialTheme.colorScheme
-    val containerColor = scheme.primaryContainer
-    val onContainer = scheme.onPrimaryContainer
+    val containerColor = Color(0xFF161618).copy(alpha = 0.88f)
+    val onContainer = Color.White
     val artworkShape = if (settings.expressiveMiniPlayerCookieArtwork) currentSongArtworkShape() else CircleShape
     val marquee = rememberTrackMarquee(song.id, active, 3_000L)
     val layoutDirection = LocalLayoutDirection.current
@@ -208,7 +210,8 @@ fun ExpressiveMiniPlayer(
         cornerRadius = ExpressiveMiniPlayerCornerRadius,
         expressive = true,
         color = containerColor,
-        elevation = 3.dp,
+        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.16f)),
+        elevation = 6.dp,
     ) {
         BoxWithConstraints(Modifier.fillMaxWidth().padding(start = 10.dp, end = 12.dp)) {
             val controlsMaxWidth = maxWidth * 0.5f
@@ -278,8 +281,8 @@ fun ExpressiveMiniPlayer(
                         WavyCircularProgressIndicator(
                             progress = progress,
                             modifier = Modifier.requiredSize(ExpressiveMiniPlayerProgressRingSize),
-                            color = onContainer,
-                            trackColor = onContainer.copy(alpha = 0.25f),
+                            color = Color(0xFF0A84FF),
+                            trackColor = Color(0xFF0A84FF).copy(alpha = 0.20f),
                             animate = active && isPlaying && !isLoading,
                         )
                     }
@@ -323,8 +326,8 @@ fun ExpressiveMiniPlayer(
                                     ExpressiveMiniButton(
                                         icon = MetrolistIcons.Rounded.SkipPrevious,
                                         description = stringResource(Res.string.previous),
-                                        background = scheme.onPrimary,
-                                        tint = scheme.primary,
+                                        background = Color.White.copy(alpha = 0.08f),
+                                        tint = Color.White,
                                         enabled = canSkipPrevious,
                                         onClick = onSkipPrevious,
                                     )
@@ -336,8 +339,8 @@ fun ExpressiveMiniPlayer(
                                             playbackActionIcon
                                                 ?: if (isPlaying) MetrolistIcons.Rounded.Pause else MetrolistIcons.Rounded.PlayArrow,
                                         description = playLabel,
-                                        background = scheme.primary,
-                                        tint = scheme.onPrimary,
+                                        background = Color(0xFF0A84FF),
+                                        tint = Color.White,
                                         enabled = playbackEnabled,
                                         onClick = onTogglePlay,
                                     )
@@ -347,8 +350,8 @@ fun ExpressiveMiniPlayer(
                                     ExpressiveMiniButton(
                                         icon = MetrolistIcons.Rounded.SkipNext,
                                         description = stringResource(Res.string.next),
-                                        background = scheme.onPrimary,
-                                        tint = scheme.primary,
+                                        background = Color.White.copy(alpha = 0.08f),
+                                        tint = Color.White,
                                         enabled = canSkipNext,
                                         onClick = onSkipNext,
                                     )
@@ -358,8 +361,8 @@ fun ExpressiveMiniPlayer(
                                     ExpressiveMiniButton(
                                         icon = MetrolistIcons.AutoMirrored.Outlined.PlaylistAdd,
                                         description = stringResource(Res.string.add_to_playlist),
-                                        background = scheme.onPrimary,
-                                        tint = scheme.primary,
+                                        background = Color.White.copy(alpha = 0.08f),
+                                        tint = Color.White,
                                         enabled = onAddToPlaylist != null,
                                         onClick = {
                                             haptics.perform(HapticEvent.PRESS)
@@ -384,8 +387,8 @@ fun ExpressiveMiniPlayer(
                                                     Res.string.mini_player_subscribe_artist
                                                 },
                                             ),
-                                        background = scheme.onPrimary,
-                                        tint = scheme.primary,
+                                        background = Color.White.copy(alpha = 0.08f),
+                                        tint = Color.White,
                                         enabled = onSubscribeToggle != null,
                                         onClick = {
                                             haptics.toggle(!isArtistSubscribed)
@@ -401,8 +404,8 @@ fun ExpressiveMiniPlayer(
                                             stringResource(
                                                 if (isLiked) Res.string.remove_from_favorites else Res.string.add_to_favorites,
                                             ),
-                                        background = scheme.onPrimary,
-                                        tint = if (isLiked) scheme.error else scheme.primary,
+                                        background = Color.White.copy(alpha = 0.08f),
+                                        tint = if (isLiked) Color(0xFF0A84FF) else Color.White,
                                         enabled = onLike != null,
                                         onClick = {
                                             haptics.toggle(!isLiked)
@@ -435,6 +438,7 @@ private fun ExpressiveMiniButton(
                 .tvFocusHighlight(CircleShape, scale = 1f)
                 .clip(CircleShape)
                 .background(background)
+                .border(BorderStroke(1.dp, Color.White.copy(alpha = 0.14f)), CircleShape)
                 .clickable(enabled = enabled, role = Role.Button, onClick = onClick),
         contentAlignment = Alignment.Center,
     ) {

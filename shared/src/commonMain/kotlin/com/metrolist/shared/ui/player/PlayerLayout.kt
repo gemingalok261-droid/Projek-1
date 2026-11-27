@@ -20,6 +20,8 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusGroup
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -438,7 +440,8 @@ internal fun TabletPlayerContent(
                                             modifier =
                                                 Modifier
                                                     .requiredSize(artworkSize)
-                                                    .clip(RoundedCornerShape(PlayerArtworkCornerRadius)),
+                                                    .clip(RoundedCornerShape(PlayerArtworkCornerRadius))
+                                                    .border(BorderStroke(1.dp, Color.White.copy(alpha = 0.18f)), RoundedCornerShape(PlayerArtworkCornerRadius)),
                                             contentScale = ContentScale.Crop,
                                         )
                                         artworkOverlay(
@@ -1267,7 +1270,8 @@ internal fun LandscapePlayerContent(
                                             modifier =
                                                 Modifier
                                                     .requiredSize(artworkSize)
-                                                    .clip(RoundedCornerShape(PlayerArtworkCornerRadius)),
+                                                    .clip(RoundedCornerShape(PlayerArtworkCornerRadius))
+                                                    .border(BorderStroke(1.dp, Color.White.copy(alpha = 0.18f)), RoundedCornerShape(PlayerArtworkCornerRadius)),
                                             contentScale = ContentScale.Crop,
                                         )
                                         artworkOverlay(

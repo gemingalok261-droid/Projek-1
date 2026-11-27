@@ -375,7 +375,7 @@ class Settings(
     var showExpressiveMiniPlayerLikeButton by preference(ShowExpressiveMiniPlayerLikeButtonKey, false)
     var showExpressiveMiniPlayerProgress by preference(ShowExpressiveMiniPlayerProgressKey, false)
     var expressiveMiniPlayerArtworkPlayback by preference(ExpressiveMiniPlayerArtworkPlaybackKey, false)
-    var expressiveMiniPlayerCookieArtwork by preference(ExpressiveMiniPlayerCookieArtworkKey, true)
+    var expressiveMiniPlayerCookieArtwork by preference(ExpressiveMiniPlayerCookieArtworkKey, false)
     var expressiveMiniPlayerShapeMotion by preference(ExpressiveMiniPlayerShapeMotionKey, true)
 
     var miniplayerFocusMode by preference(false)
@@ -428,9 +428,9 @@ class Settings(
     var densityScaleFactor by preference(DensityScaleKey, 1f)
     var enableLandscapeScaling by preference(EnableLandscapeScalingKey, false)
     var forceBottomNavBar by preference(ForceBottomNavBarKey, true)
-    var slimNavBar by preference(SlimNavBarKey, true)
-    var floatingNavBar by preference(FloatingNavBarKey, false)
-    var floatingTopBar by preference(FloatingTopBarKey, false)
+    var slimNavBar by preference(SlimNavBarKey, false)
+    var floatingNavBar by preference(FloatingNavBarKey, true)
+    var floatingTopBar by preference(FloatingTopBarKey, true)
     var floatingSearch by preference(false)
     var voiceSearchEnabled by preference(VoiceSearchEnabledKey, true)
 
