@@ -71,7 +71,7 @@ val Screen.labelRes: StringResource?
             Screen.Home -> Res.string.home
             Screen.Library -> Res.string.filter_library
             Screen.Search -> Res.string.search
-            Screen.EasterEgg -> Res.string.mysterious_fourth_tab
+            Screen.EasterEgg, Screen.Crossword -> Res.string.mysterious_fourth_tab
             Screen.Settings -> Res.string.settings
             Screen.History -> Res.string.menu_history
             Screen.Statistics -> Res.string.statistics
@@ -85,6 +85,7 @@ val Screen.icon: ImageVector?
             Screen.Home -> MetrolistIcons.Outlined.Home
             Screen.Library -> MetrolistIcons.Outlined.LibraryMusic
             Screen.Search -> MetrolistIcons.Outlined.Search
+            Screen.EasterEgg, Screen.Crossword -> MetrolistIcons.Outlined.Extension
             Screen.Settings -> MetrolistIcons.Outlined.Settings
             Screen.History -> MetrolistIcons.Outlined.History
             Screen.Statistics -> MetrolistIcons.Outlined.SsidChart
@@ -98,7 +99,7 @@ val Screen.iconFilled: ImageVector?
             Screen.Home -> MetrolistIcons.Filled.Home
             Screen.Library -> MetrolistIcons.Filled.LibraryMusic
             Screen.Search -> MetrolistIcons.Filled.Search
-            Screen.EasterEgg -> MetrolistIcons.Filled.QuestionMark
+            Screen.EasterEgg, Screen.Crossword -> MetrolistIcons.Filled.SportsEsports
             Screen.Settings -> MetrolistIcons.Filled.Settings
             Screen.History -> MetrolistIcons.Filled.History
             Screen.Statistics -> MetrolistIcons.Filled.SsidChart
@@ -255,7 +256,7 @@ private fun floatingNavigationItems(): List<Screen> =
         if (Settings.shared.showBottomNavHome) add(Screen.Home)
         if (Settings.shared.showBottomNavLibrary) add(Screen.Library)
         if (Settings.shared.showBottomNavSearch) add(Screen.Search)
-        if (isEmpty()) add(Screen.EasterEgg)
+        add(Screen.EasterEgg)
     }
 
 private fun visibleNavigationItems(): List<Screen> =
@@ -263,7 +264,7 @@ private fun visibleNavigationItems(): List<Screen> =
         if (Settings.shared.showBottomNavHome) add(Screen.Home)
         if (Settings.shared.showBottomNavSearch) add(Screen.Search)
         if (Settings.shared.showBottomNavLibrary) add(Screen.Library)
-        if (isEmpty()) add(Screen.EasterEgg)
+        add(Screen.EasterEgg)
     }
 
 private fun Modifier.navigationLongPress(

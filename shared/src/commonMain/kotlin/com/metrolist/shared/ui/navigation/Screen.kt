@@ -31,6 +31,16 @@ sealed class Screen : NavKey {
     data object EasterEgg : Screen()
 
     @Serializable
+    data object Crossword : Screen()
+
+    @Serializable
+    data class MerchLinker(
+        val songId: String = "",
+        val songTitle: String = "",
+        val artist: String = "",
+    ) : Screen()
+
+    @Serializable
     data object Settings : Screen()
 
     @Serializable
@@ -187,6 +197,7 @@ val Screen.navigationId: String?
             Screen.History -> NavigationId.HISTORY
             Screen.Statistics -> NavigationId.STATISTICS
             Screen.ListenTogether -> NavigationId.LISTEN_TOGETHER
+            Screen.EasterEgg, Screen.Crossword -> "ARCADE"
             else -> null
         }
 

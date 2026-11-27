@@ -363,6 +363,11 @@ import com.metrolist.shared.ui.playback.LocalPlaybackController
 import com.metrolist.shared.ui.player.LocalPlayerPlatform
 import com.metrolist.shared.ui.player.PlayerScreen
 import com.metrolist.shared.ui.player.shouldShowMusicVideoSurface
+import com.metrolist.shared.database.MusicDatabase
+import com.metrolist.shared.ui.screens.LyricCrosswordScreen
+import com.metrolist.shared.ui.screens.MerchLinkerScreen
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import com.metrolist.shared.ui.screens.SupportPrompt
 import com.metrolist.shared.ui.screens.pageKey
 import com.metrolist.shared.ui.screens.toHomeSection
@@ -486,7 +491,7 @@ fun MetrolistApp(
             onRejectPairing = AndroidDeviceConnect.manager::rejectPairing,
         )
         val initialStartRoute = remember { resolveAndPersistStartupScreen() }
-        val topLevelRoutes = remember { setOf(Screen.Home, Screen.Search, Screen.Library, Screen.EasterEgg) }
+        val topLevelRoutes = remember { setOf(Screen.Home, Screen.Search, Screen.Library, Screen.EasterEgg, Screen.Crossword) }
         val navigationState =
             key(navigationSaveKey) {
                 rememberNavigationState(
@@ -840,7 +845,7 @@ fun MetrolistApp(
         val immersiveContent = remember { mutableStateOf(false) }
         val shouldRenderMiniPlayer = shouldShowMiniPlayer && !shouldHideMiniPlayerForIme
 
-        val topLevelScreens = remember { setOf(Screen.Home, Screen.Library, Screen.EasterEgg) }
+        val topLevelScreens = remember { setOf(Screen.Home, Screen.Library, Screen.EasterEgg, Screen.Crossword) }
         val shouldShowTopBar =
             navigationState.topLevelRoute in topLevelScreens && currentRoute in topLevelScreens
 
@@ -1550,6 +1555,31 @@ fun MetrolistApp(
                                                         emptyList()
                                                     }
                                                 val topBarActions: @Composable RowScope.() -> Unit = {
+                                                    val streakDays = Settings.shared.listeningStreakDays
+                                                    val isStreakActive = streakDays > 0
+                                                    Surface(
+                                                        shape = CircleShape,
+                                                        color = if (isStreakActive) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainerHigh,
+                                                        modifier = Modifier.padding(end = 4.dp).clickable {
+                                                            navigator.navigate(Screen.Crossword)
+                                                        },
+                                                    ) {
+                                                        Row(
+                                                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                                                            verticalAlignment = Alignment.CenterVertically,
+                                                            horizontalArrangement = Arrangement.spacedBy(4.dp),
+                                                        ) {
+                                                            Text(
+                                                                text = if (isStreakActive) "🔥" else "⚪",
+                                                                fontSize = 13.sp,
+                                                            )
+                                                            Text(
+                                                                text = if (isStreakActive) "$streakDays Hari" else "1 Hari",
+                                                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                                                color = if (isStreakActive) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurfaceVariant,
+                                                            )
+                                                        }
+                                                    }
                                                     if (navigationState.topLevelRoute == Screen.Home && Screen.History !in railScreens) {
                                                         TopBarIconButton(
                                                             floating = useFloatingTopBar,
@@ -2477,7 +2507,7 @@ fun resolveAndPersistStartupScreen(): Screen {
 
 fun NavKey.isVisibleNavigationScreen(): Boolean =
     when (this) {
-        Screen.Home, Screen.Search, Screen.Library, Screen.EasterEgg -> true
+        Screen.Home, Screen.Search, Screen.Library, Screen.EasterEgg, Screen.Crossword -> true
         else -> false
     }
 
@@ -2506,6 +2536,8 @@ fun getEntryProvider(
                 onNavigateToPodcast = { podcastId -> navigator.navigate(Screen.Podcast(podcastId)) },
                 onNavigateToRecognition = { navigator.navigate(Screen.Recognition) },
                 onNavigateToWrapped = { navigator.navigate(Screen.Wrapped) },
+                onNavigateToCrossword = { navigator.navigate(Screen.Crossword) },
+                onNavigateToMerchLinker = { navigator.navigate(Screen.MerchLinker()) },
                 onNavigateToLibrary = { filter ->
                     filter?.let { Settings.shared.libraryFilter = it }
                     navigator.navigate(Screen.Library)
@@ -2524,9 +2556,56 @@ fun getEntryProvider(
         }
 
         entry<Screen.EasterEgg>(metadata = navTabMetadata) {
-            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(stringResource(Res.string.mysterious_fourth_tab_description))
-            }
+            val database: MusicDatabase = koinInject()
+            val playbackController = LocalPlaybackController.current
+            LyricCrosswordScreen(
+                database = database,
+                playbackController = playbackController,
+                onBack = { navigator.navigateToRoot(Screen.Home) },
+                onShareScore = { scoreCard ->
+                    val intent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT, scoreCard)
+                    }
+                    context.startActivity(Intent.createChooser(intent, "Share Skor TTS"))
+                },
+                modifier = Modifier.fillMaxSize(),
+            )
+        }
+
+        entry<Screen.Crossword>(metadata = navTabMetadata) {
+            val database: MusicDatabase = koinInject()
+            val playbackController = LocalPlaybackController.current
+            LyricCrosswordScreen(
+                database = database,
+                playbackController = playbackController,
+                onBack = { navigator.goBack() },
+                onShareScore = { scoreCard ->
+                    val intent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT, scoreCard)
+                    }
+                    context.startActivity(Intent.createChooser(intent, "Share Skor TTS"))
+                },
+                modifier = Modifier.fillMaxSize(),
+            )
+        }
+
+        entry<Screen.MerchLinker>(metadata = navTabMetadata) {
+            val playerConnection = LocalPlayerConnection.current
+            val currentSong by (playerConnection?.currentSong?.collectAsStateWithLifecycle() ?: remember { mutableStateOf(null) })
+            MerchLinkerScreen(
+                currentSong = currentSong,
+                onBack = { navigator.goBack() },
+                onShareMerch = { text ->
+                    val intent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT, text)
+                    }
+                    context.startActivity(Intent.createChooser(intent, "Share Merch Tag"))
+                },
+                modifier = Modifier.fillMaxSize(),
+            )
         }
 
         entry<Screen.HomeSection>(metadata = navTabMetadata + detailViewModelMetadata) { section ->

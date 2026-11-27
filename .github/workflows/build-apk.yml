@@ -70,15 +70,15 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release delete v1.4.4 --yes 2>/dev/null || true
-          git tag -d v1.4.4 2>/dev/null || true
-          gh release create v1.4.4 dist/*.apk \
-            --title "Accretion v1.4.4 (Streak Api di Widget & TopBar, Banner Beranda, Tab Arcade & Keystore Tetap)" \
-            --notes "### Accretion v1.4.4 - Streak Api di Widget & TopBar, Banner Beranda, Tab Arcade & Keystore Tetap
+          gh release delete v1.4.5 --yes 2>/dev/null || true
+          git tag -d v1.4.5 2>/dev/null || true
+          gh release create v1.4.5 dist/*.apk \
+            --title "Accretion v1.4.5 (Fix Tombol Antrean Player, Native Android Banner, Streak Api & Arcade Crossword)" \
+            --notes "### Accretion v1.4.5 - Fix Tombol Antrean Player, Native Android Banner, Streak Api & Arcade Crossword
 
-          Pembaruan resmi Accretion v1.4.4:
-          - **🔥 Streak Api di Widget Android**: Widget Android Home Screen bawaan (Player, Compact, Wide, Square) sekarang resmi terintegrasi dengan penghitung streak api musik ('🔥 X Hari').
-          - **🔥 Lencana Api di TopAppBar Beranda**: Bilah atas Beranda kini selalu menampilkan lencana interaktif '[ 🔥 X Hari ]' yang langsung bisa diklik untuk menuju game TTS Lirik.
-          - **✨ Kartu Sambutan & Streak di Paling Atas Beranda**: Banner sambutan api dipindahkan ke urutan teratas sebelum chip agar langsung terlihat tanpa tertutup atau tergeser.
-          - **🎮 Tab Arcade di Navigasi Bawah**: Tab ke-4 langsung aktif di bilah navigasi bawah dengan ikon Arcade untuk akses cepat ke TTS Lirik Ray dan Merch Linker.
-          - **🔑 Keystore Rilis Permanen**: Penandatanganan APK kini menggunakan keystore permanen terverifikasi sehingga update ke versi berikutnya tidak akan mengalami konflik signature."
+          Pembaruan resmi Accretion v1.4.5:
+          - **🎵 Fix Tombol Antrean (Queue) Player**: Masalah gesture tabrakan pada baris player bottom controls telah diperbaiki tuntas. Menekan tombol antrean kini langsung merespons dan membuka lembar antrean secara responsif dan mulus.
+          - **✨ Banner Sambutan & Streak Api di Android Asli**: Komponen AccretionWelcomeStreakBanner dipasang langsung ke HomeScreen.kt native Android sehingga langsung muncul di baris paling atas Beranda lengkap dengan animasi api streak dan status high FPS.
+          - **🔥 Lencana Api TopAppBar Interaktif**: Lencana '🔥 X Hari' di bilah atas Beranda Android kini interaktif dan langsung membawa pengguna ke game Arcade TTS Lirik Ray.
+          - **🎮 Tab Arcade Aktif di Navigasi Bawah**: Tab ke-4 (Arcade) di bilah navigasi Android kini langsung menjalankan LyricCrosswordScreen (TTS Lirik Lagu) dan MerchLinkerScreen (QR & NFC Tag fisik).
+          - **🌐 Dukungan Multiplatform Penuh**: Seluruh integrasi banner, streak, antrean, dan game TTS sinkron untuk Android, Desktop (Windows, macOS, Linux), dan iOS."

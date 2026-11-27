@@ -915,7 +915,7 @@ fun PlayerScreen(
                 if (!useLandscapeLayout && uiState.isLyricsExpanded) {
                     viewModel.setLyricsVisible(false)
                 }
-                if (queueSheetState.value >= queueSheetState.expandedBound - 10.dp) {
+                if (queueSheetState.isExpanded || queueSheetState.targetAnchor == EXPANDED_ANCHOR || queueSheetState.progress > 0.4f) {
                     queueSheetState.collapseSoft()
                 } else {
                     queueSheetState.expandSoft()
@@ -2329,6 +2329,7 @@ fun PlayerScreen(
                                 predictiveBack = true,
                                 modifier = Modifier.fillMaxSize().padding(top = queueSheetTopPadding),
                                 isDraggableWhenCollapsed = true,
+                                isCollapsedContentClickable = false,
                                 collapsedContentAlpha = { progress -> (1f - progress * 5f).coerceIn(0f, 1f) },
                                 contentAlpha = { progress -> ((progress - 0.2f) * 4f).coerceIn(0f, 1f) },
                                 preserveContentWhenCollapsed = false,

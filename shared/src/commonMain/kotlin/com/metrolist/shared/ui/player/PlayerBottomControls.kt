@@ -131,32 +131,45 @@ internal fun PlayerBottomControls(
             modifier
                 .fillMaxWidth()
                 .focusProperties { canFocus = false }
-                .clickable(
-                    enabled = showQueueHandle,
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null,
-                    onClick = {
-                        hapticManager.perform(HapticEvent.PRESS)
-                        onOpenQueue()
-                    },
-                ).padding(bottom = navigationBarBottomPadding),
+                .padding(bottom = navigationBarBottomPadding),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         if (showQueueHandle) {
-            Spacer(modifier = Modifier.height(8.dp))
-            if (LocalIsTv.current) {
-                Box(
-                    modifier =
-                        Modifier
-                            .width(36.dp)
-                            .height(4.dp)
-                            .clip(RoundedCornerShape(2.dp))
-                            .background(MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.45f)),
-                )
-            } else {
-                Spacer(modifier = Modifier.height(4.dp))
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null,
+                            onClick = {
+                                hapticManager.perform(HapticEvent.PRESS)
+                                onOpenQueue()
+                            },
+                        )
+                        .padding(top = 8.dp, bottom = 12.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                if (LocalIsTv.current) {
+                    Box(
+                        modifier =
+                            Modifier
+                                .width(36.dp)
+                                .height(4.dp)
+                                .clip(RoundedCornerShape(2.dp))
+                                .background(MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.45f)),
+                    )
+                } else {
+                    Box(
+                        modifier =
+                            Modifier
+                                .width(36.dp)
+                                .height(4.dp)
+                                .clip(RoundedCornerShape(2.dp))
+                                .background(MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.35f)),
+                    )
+                }
             }
-            Spacer(modifier = Modifier.height(12.dp))
         }
         Row(
             modifier =

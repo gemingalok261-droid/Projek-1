@@ -1127,7 +1127,7 @@
     <!-- Translators: Imperative action label for show library tab in the Appearance settings. -->
     <string name="appearance_show_library_tab">Library tab</string>
     <!-- Translators: Option or section label for mysterious fourth tab in the settings and app-wide dialogs. -->
-    <string name="mysterious_fourth_tab">The mysterious fourth tab</string>
+    <string name="mysterious_fourth_tab">Arcade</string>
     <!-- Translators: Supporting text beneath the mysterious fourth tab option in the app-wide dialogs. -->
     <string name="mysterious_fourth_tab_description">Home, Search, and Library are hidden. Open the account menu, then Settings to show them again.</string>
     <!-- Translators: Option or section label for slim bottom nav in the Appearance settings. -->

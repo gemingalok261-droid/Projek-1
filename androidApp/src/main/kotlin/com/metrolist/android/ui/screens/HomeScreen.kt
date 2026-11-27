@@ -135,6 +135,8 @@ fun HomeScreen(
     onNavigateToVideoBrowse: (String, String?, String) -> Unit = onNavigateToBrowse,
     onNavigateToHomeSection: (HomeShelf) -> Unit = {},
     onNavigateToLibrary: (LibraryFilterType?) -> Unit = {},
+    onNavigateToCrossword: () -> Unit = {},
+    onNavigateToMerchLinker: () -> Unit = {},
     floatingActionsBottomInset: State<Dp>,
     scrollToTopEvents: Flow<Long> = emptyFlow(),
     viewModel: HomeViewModel = koinViewModel<HomeViewModel>(),
@@ -340,6 +342,13 @@ fun HomeScreen(
                     }
 
                     else -> {
+                        item(key = "accretion_welcome_streak_banner") {
+                            com.metrolist.shared.ui.components.AccretionWelcomeStreakBanner(
+                                onOpenCrossword = onNavigateToCrossword,
+                                onOpenMerchLinker = onNavigateToMerchLinker,
+                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                            )
+                        }
                         item {
                             ChipShelf(
                                 options = uiState.chips,
