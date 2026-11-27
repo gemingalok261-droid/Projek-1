@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ColorScheme
@@ -64,6 +65,7 @@ import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
@@ -83,14 +85,17 @@ import com.metrolist.shared.generated.resources.build_type_release
 import com.metrolist.shared.generated.resources.devmode_already_active
 import com.metrolist.shared.generated.resources.devtools_enabled
 import com.metrolist.shared.generated.resources.play
+import com.metrolist.shared.generated.resources.qris_sponsor
 import com.metrolist.shared.generated.resources.stands_with_palestine
 import com.metrolist.shared.settings.Settings
+import com.metrolist.shared.ui.components.ModalBottomSheet
 import com.metrolist.shared.ui.components.images.AsyncImage
 import com.metrolist.shared.ui.icons.MetrolistIcons
 import com.metrolist.shared.ui.utils.toPolygonShape
 import com.metrolist.shared.ui.utils.verticalScrollWithDrag
 import com.metrolist.shared.utils.getAppArchitecture
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -122,10 +127,10 @@ fun AboutScreen(
     val playLabel = stringResource(Res.string.play)
     val uriHandler = LocalUriHandler.current
     var selectedContributor by remember { mutableStateOf<AboutContributor?>(null) }
+    var showQrisModal by remember { mutableStateOf(false) }
     val openCommunityLink =
-        onOpenCommunityLink ?: { link: AboutCommunityLink ->
-            runCatching { uriHandler.openUri(link.url) }
-            Unit
+        onOpenCommunityLink ?: { _ ->
+            // Decorative / no redirect as requested
         }
 
     val onContributorLongClick: ((AboutContributor) -> Unit)? =
@@ -216,9 +221,9 @@ fun AboutScreen(
             )
 
             CollaboratorsList(
-                contributors = listOf(AboutContributors.lead),
+                contributors = AboutContributors.leads,
                 text = text,
-                title = text.creatorSection,
+                title = "Pemimpin",
                 avatarSize = 64.dp,
                 colorScheme = colorScheme,
                 onContributorClick = { selectedContributor = it },
@@ -226,9 +231,9 @@ fun AboutScreen(
             )
 
             CollaboratorsList(
-                contributors = AboutContributors.leads,
+                contributors = listOf(AboutContributors.lead),
                 text = text,
-                title = text.leadsSection,
+                title = "Pengembang",
                 avatarSize = 64.dp,
                 colorScheme = colorScheme,
                 onContributorClick = { selectedContributor = it },
@@ -238,6 +243,7 @@ fun AboutScreen(
             CollaboratorsList(
                 contributors = AboutContributors.collaborators,
                 text = text,
+                title = "Kolaborator",
                 colorScheme = colorScheme,
                 onContributorClick = { selectedContributor = it },
                 onContributorLongClick = onContributorLongClick,
@@ -272,7 +278,48 @@ fun AboutScreen(
             colorScheme = colorScheme,
             onDismiss = { selectedContributor = null },
             onOpenUrl = { url -> runCatching { uriHandler.openUri(url) } },
+            onOpenQris = {
+                selectedContributor = null
+                showQrisModal = true
+            },
         )
+    }
+
+    if (showQrisModal) {
+        ModalBottomSheet(
+            onDismissRequest = { showQrisModal = false },
+            containerColor = colorScheme.surfaceContainerLow,
+            dragHandle = { BottomSheetDefaults.DragHandle() },
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(
+                    text = "Sponsor Pengembangan",
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    color = colorScheme.onSurface,
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Image(
+                    painter = painterResource(Res.drawable.qris_sponsor),
+                    contentDescription = "QRIS Sponsor",
+                    modifier = Modifier
+                        .fillMaxWidth(0.85f)
+                        .clip(RoundedCornerShape(16.dp)),
+                    contentScale = ContentScale.FillWidth,
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Scan QRIS di atas untuk mendukung pengembangan Accretion",
+                    style = MaterialTheme.typography.bodyMedium,
+                    textAlign = TextAlign.Center,
+                    color = colorScheme.onSurfaceVariant,
+                )
+                Spacer(modifier = Modifier.height(24.dp))
+            }
+        }
     }
 }
 
@@ -419,12 +466,21 @@ private fun ContributorAvatar(
         color = colorScheme.surfaceContainerHighest,
         tonalElevation = 4.dp,
     ) {
-        AsyncImage(
-            url = contributor.avatarUrl,
-            contentDescription = null,
-            shape = shape,
-            modifier = Modifier.fillMaxSize(),
-        )
+        if (contributor.drawableRes != null) {
+            Image(
+                painter = painterResource(contributor.drawableRes),
+                contentDescription = contributor.name,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize().clip(shape),
+            )
+        } else {
+            AsyncImage(
+                url = contributor.avatarUrl,
+                contentDescription = null,
+                shape = shape,
+                modifier = Modifier.fillMaxSize(),
+            )
+        }
     }
 }
 
@@ -488,7 +544,7 @@ private fun CollaboratorsList(
                                 color = colorScheme.onSurface,
                             )
                             Text(
-                                text = text.roleLabel(contributor.role),
+                                text = text.roleLabel(contributor),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = colorScheme.onSurfaceVariant,
                             )

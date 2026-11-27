@@ -103,49 +103,62 @@ object IconUtils {
         context: Context,
         icon: AppIcon,
     ) {
-        val pm = context.packageManager
-        val selectedComponent = icon.componentName(context)
+        runCatching {
+            val pm = context.packageManager
+            val selectedComponent = icon.componentName(context)
 
-        if (!pm.isEnabled(selectedComponent, icon.enabledByDefault)) {
-            pm.setComponentEnabledSetting(
-                selectedComponent,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP,
-            )
-        }
-
-        AppIcon.entries.filterNot { it == icon }.forEach { other ->
-            val component = other.componentName(context)
-            if (pm.isEnabled(component, other.enabledByDefault)) {
-                pm.setComponentEnabledSetting(
-                    component,
-                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                    PackageManager.DONT_KILL_APP,
-                )
+            if (!pm.isEnabled(selectedComponent, icon.enabledByDefault)) {
+                runCatching {
+                    pm.setComponentEnabledSetting(
+                        selectedComponent,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP,
+                    )
+                }
             }
-        }
 
-        LEGACY_ALIAS_NAMES.forEach { aliasName ->
-            val component = ComponentName(context, "$MANIFEST_PACKAGE.$aliasName")
-            if (pm.getComponentEnabledSetting(component) == PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
-                pm.setComponentEnabledSetting(
-                    component,
-                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                    PackageManager.DONT_KILL_APP,
-                )
+            AppIcon.entries.filterNot { it == icon }.forEach { other ->
+                val component = other.componentName(context)
+                if (pm.isEnabled(component, other.enabledByDefault)) {
+                    runCatching {
+                        pm.setComponentEnabledSetting(
+                            component,
+                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                            PackageManager.DONT_KILL_APP,
+                        )
+                    }
+                }
+            }
+
+            LEGACY_ALIAS_NAMES.forEach { aliasName ->
+                val component = ComponentName(context.packageName, "${context.packageName}.$aliasName")
+                runCatching {
+                    if (pm.getComponentEnabledSetting(component) == PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
+                        pm.setComponentEnabledSetting(
+                            component,
+                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                            PackageManager.DONT_KILL_APP,
+                        )
+                    }
+                }
             }
         }
     }
 
-    private fun AppIcon.componentName(context: Context) = ComponentName(context, "$MANIFEST_PACKAGE.$aliasName")
+    private fun AppIcon.componentName(context: Context): ComponentName {
+        val packageName = context.packageName
+        return ComponentName(packageName, "$packageName.$aliasName")
+    }
 
     private fun PackageManager.isEnabled(
         component: ComponentName,
         enabledByDefault: Boolean,
     ): Boolean =
-        when (getComponentEnabledSetting(component)) {
-            PackageManager.COMPONENT_ENABLED_STATE_ENABLED -> true
-            PackageManager.COMPONENT_ENABLED_STATE_DEFAULT -> enabledByDefault
-            else -> false
-        }
+        runCatching {
+            when (getComponentEnabledSetting(component)) {
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED -> true
+                PackageManager.COMPONENT_ENABLED_STATE_DEFAULT -> enabledByDefault
+                else -> false
+            }
+        }.getOrDefault(false)
 }

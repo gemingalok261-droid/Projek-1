@@ -195,8 +195,7 @@ fun PlayerPrimaryControls(
             },
             enabled = onSkipPrevious != null,
             shape = CircleShape,
-            color = Color.White.copy(alpha = 0.08f),
-            border = BorderStroke(1.dp, Color.White.copy(alpha = 0.16f)),
+            color = Color.Transparent,
             contentColor = MaterialTheme.colorScheme.onSurface,
             interactionSource = prevInteractionSource,
             modifier =
@@ -225,7 +224,6 @@ fun PlayerPrimaryControls(
             },
             shape = CircleShape,
             color = Color(0xFF0A84FF),
-            border = BorderStroke(1.5.dp, Color.White.copy(alpha = 0.25f)),
             contentColor = Color.White,
             interactionSource = playPauseInteractionSource,
             modifier =
@@ -268,8 +266,7 @@ fun PlayerPrimaryControls(
             },
             enabled = onSkipNext != null,
             shape = CircleShape,
-            color = Color.White.copy(alpha = 0.08f),
-            border = BorderStroke(1.dp, Color.White.copy(alpha = 0.16f)),
+            color = Color.Transparent,
             contentColor = MaterialTheme.colorScheme.onSurface,
             interactionSource = nextInteractionSource,
             modifier =

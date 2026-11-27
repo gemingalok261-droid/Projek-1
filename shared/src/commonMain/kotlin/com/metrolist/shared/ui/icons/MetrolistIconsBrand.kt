@@ -197,4 +197,26 @@ object MetrolistIconsBrand {
                 }.build()
                 .also { cachedYoutube = it }
     private var cachedYoutube: ImageVector? = null
+
+    val TikTok: ImageVector
+        get() =
+            cachedTikTok ?: ImageVector
+                .Builder(
+                    name = "TikTok",
+                    defaultWidth = 24.dp,
+                    defaultHeight = 24.dp,
+                    viewportWidth = 24f,
+                    viewportHeight = 24f,
+                ).apply {
+                    addPath(
+                        pathData =
+                            PathParser()
+                                .parsePathString(
+                                    "M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 2.89 3.5 2.77 1.81-.07 3.25-1.54 3.32-3.34.04-3.53.01-7.07.02-10.6.01-2.74-.01-5.49.02-8.23z",
+                                ).toNodes(),
+                        fill = SolidColor(Color.Black),
+                    )
+                }.build()
+                .also { cachedTikTok = it }
+    private var cachedTikTok: ImageVector? = null
 }

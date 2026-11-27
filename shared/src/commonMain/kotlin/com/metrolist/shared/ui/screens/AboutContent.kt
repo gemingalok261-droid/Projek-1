@@ -7,6 +7,7 @@
 
 package com.metrolist.shared.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,10 +32,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.metrolist.shared.generated.resources.Res
 import com.metrolist.shared.generated.resources.about
+import com.metrolist.shared.generated.resources.avatar_antigravity
+import com.metrolist.shared.generated.resources.avatar_ganzvlty
+import com.metrolist.shared.generated.resources.avatar_ray
 import com.metrolist.shared.generated.resources.brand_discord
 import com.metrolist.shared.generated.resources.brand_github
 import com.metrolist.shared.generated.resources.brand_telegram
@@ -64,6 +69,8 @@ import com.metrolist.shared.ui.components.PlayerMenuPrimaryActions
 import com.metrolist.shared.ui.components.images.AsyncImage
 import com.metrolist.shared.ui.icons.MetrolistIcons
 import com.metrolist.shared.ui.icons.MetrolistIconsBrand
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource as sharedStringResource
 
 @Composable
@@ -120,111 +127,63 @@ enum class AboutAvatarShape {
 data class AboutContributor(
     val name: String,
     val role: AboutContributorRole,
+    val customRoleLabel: String? = null,
     val githubHandle: String? = null,
+    val tiktokHandle: String? = null,
+    val tiktokUrl: String? = null,
     val websiteUrl: String? = null,
     val sponsorUrl: String? = null,
-    val avatarShape: AboutAvatarShape,
+    val isSponsorQris: Boolean = false,
+    val avatarShape: AboutAvatarShape = AboutAvatarShape.COOKIE_9_SIDED,
     val customAvatarUrl: String? = null,
+    val drawableRes: DrawableResource? = null,
     val favoriteSongVideoId: String? = null,
 ) {
     val avatarUrl: String =
         customAvatarUrl
             ?: githubHandle?.let { "https://github.com/$it.png" }
-            ?: error("Contributor $name needs a GitHub handle or customAvatarUrl")
+            ?: ""
     val githubUrl: String? = githubHandle?.let { "https://github.com/$it" }
+    val effectiveTiktokUrl: String? = tiktokUrl ?: tiktokHandle?.let { "https://www.tiktok.com/@$it" }
 }
 
 object AboutContributors {
     val lead: AboutContributor =
         AboutContributor(
-            name = "Mo Agamy",
+            name = "Ray",
             role = AboutContributorRole.CREATOR,
-            githubHandle = "mostafaalagamy",
-            sponsorUrl = "https://buymeacoffee.com/mostafaalagamy",
+            customRoleLabel = "Creator & Pengembang",
+            tiktokHandle = "rayytampann",
+            tiktokUrl = "https://www.tiktok.com/@rayytampann",
+            isSponsorQris = true,
             avatarShape = AboutAvatarShape.COOKIE_9_SIDED,
-            favoriteSongVideoId = "Mh2JWGWvy_Y",
+            customAvatarUrl = "https://files.catbox.moe/9uqv2p.jpg",
+            drawableRes = Res.drawable.avatar_ray,
         )
 
     val leads: List<AboutContributor> =
         listOf(
             AboutContributor(
-                name = "Nyx",
-                role = AboutContributorRole.ANDROID_LEAD,
-                githubHandle = "nyxiereal",
-                websiteUrl = "https://nyx.meowery.eu",
-                sponsorUrl = "https://github.com/sponsors/nyxiereal",
-                avatarShape = AboutAvatarShape.COOKIE_9_SIDED,
-            ),
-            AboutContributor(
-                name = "Adriel O'Connel",
-                role = AboutContributorRole.MULTIPLATFORM_DEVELOPMENT,
-                githubHandle = "adrielGGmotion",
-                sponsorUrl = "https://github.com/sponsors/adrielGGmotion",
-                avatarShape = AboutAvatarShape.COOKIE_4_SIDED,
-                favoriteSongVideoId = "m2zUrruKjDQ",
+                name = "Antigravity",
+                role = AboutContributorRole.CREATOR,
+                customRoleLabel = "Pengembangan Utama",
+                avatarShape = AboutAvatarShape.SUNNY,
+                drawableRes = Res.drawable.avatar_antigravity,
             ),
         )
 
     val collaborators: List<AboutContributor> =
         listOf(
             AboutContributor(
-                name = "Lamp",
-                role = AboutContributorRole.DESKTOP_DEVELOPMENT,
-                githubHandle = "l6t9",
-                websiteUrl = "https://lampu.dev",
-                sponsorUrl = "https://github.com/sponsors/l6t9",
-                avatarShape = AboutAvatarShape.COOKIE_9_SIDED,
-            ),
-            AboutContributor(
-                name = "Show",
-                role = AboutContributorRole.ANDROID_DESIGNER,
-                githubHandle = "showtc",
+                name = "Ganzvlty",
+                role = AboutContributorRole.CREATOR,
+                customRoleLabel = "Mencari Bug Dan Mencari Ide",
+                tiktokUrl = "https://www.tiktok.com/@ganzvlty?_r=1&_t=ZS-9BkBt6YpmgW",
                 avatarShape = AboutAvatarShape.COOKIE_6_SIDED,
+                customAvatarUrl = "https://files.catbox.moe/yb8vod.jpg",
+                drawableRes = Res.drawable.avatar_ganzvlty,
             ),
-            AboutContributor(
-                name = "Ibra Al Tabian",
-                role = AboutContributorRole.LYRICS_UI_SERVICES,
-                githubHandle = "ibratabian17",
-                sponsorUrl = "https://ko-fi.com/ibratabian17",
-                avatarShape = AboutAvatarShape.SUNNY,
-            ),
-            AboutContributor(
-                name = "Ismail Tiryaki",
-                role = AboutContributorRole.MULTIPLATFORM_DEVELOPMENT,
-                githubHandle = "isotjs",
-                websiteUrl = "https://ismailtiryaki.dev",
-                avatarShape = AboutAvatarShape.GEM,
-                favoriteSongVideoId = "NdAYM9Voudg",
-            ),
-            AboutContributor(
-                name = "Alessio Attilio",
-                role = AboutContributorRole.MULTIPLATFORM_DEVELOPMENT,
-                githubHandle = "kairosci",
-                websiteUrl = "https://kairosci.vercel.app",
-                sponsorUrl = "https://github.com/sponsors/kairosci",
-                avatarShape = AboutAvatarShape.COOKIE_6_SIDED,
-            ),
-            AboutContributor(
-                name = "Applxcake",
-                role = AboutContributorRole.MACOS_DEVELOPMENT,
-                githubHandle = "applxcake",
-                sponsorUrl = "https://github.com/sponsors/applxcake",
-                avatarShape = AboutAvatarShape.PUFFY_DIAMOND,
-            ),
-            AboutContributor(
-                name = "AlexxBytes",
-                role = AboutContributorRole.DESKTOP_DEVELOPMENT,
-                githubHandle = "alexxbytes",
-                sponsorUrl = "https://github.com/sponsors/alexxbytes",
-                avatarShape = AboutAvatarShape.COOKIE_4_SIDED,
-            ),
-            AboutContributor(
-                name = "Tryfle",
-                role = AboutContributorRole.MACOS_DEVELOPMENT,
-                githubHandle = "Tryflle",
-                avatarShape = AboutAvatarShape.BURST,
-            ),
-        ).sortedBy { it.name.lowercase() }
+        )
 
     val all: List<AboutContributor> = listOf(lead) + leads + collaborators
 }
@@ -290,6 +249,9 @@ data class AboutScreenText(
             AboutContributorRole.WEAROS_DESIGNER -> wearOsDesignerRole
         }
 
+    fun roleLabel(contributor: AboutContributor): String =
+        contributor.customRoleLabel ?: roleLabel(contributor.role)
+
     fun communityLabel(kind: AboutCommunityLinkKind): String =
         when (kind) {
             AboutCommunityLinkKind.DISCORD -> discord
@@ -329,22 +291,22 @@ fun AuthorInfoSheet(
     colorScheme: ColorScheme,
     onDismiss: () -> Unit,
     onOpenUrl: (String) -> Unit,
+    onOpenQris: () -> Unit = {},
 ) {
-    val roleLabel =
-        when (contributor.role) {
-            AboutContributorRole.CREATOR -> sharedStringResource(Res.string.credits_creator)
-            AboutContributorRole.ANDROID_LEAD -> sharedStringResource(Res.string.credits_android_lead)
-            AboutContributorRole.DESKTOP_LEAD -> sharedStringResource(Res.string.credits_desktop_lead)
-            AboutContributorRole.DISCORD_RICH_PRESENCE -> sharedStringResource(Res.string.discord_rpc_title)
-            AboutContributorRole.ANDROID_DEVELOPMENT -> sharedStringResource(Res.string.credits_android_developer)
-            AboutContributorRole.DESKTOP_DEVELOPMENT -> sharedStringResource(Res.string.credits_desktop_developer)
-            AboutContributorRole.MULTIPLATFORM_DEVELOPMENT -> sharedStringResource(Res.string.credits_multiplatform_developer)
-            AboutContributorRole.MACOS_DEVELOPMENT -> sharedStringResource(Res.string.credits_macos_developer)
-            AboutContributorRole.WINDOWS_DEVELOPMENT -> sharedStringResource(Res.string.credits_windows_developer)
-            AboutContributorRole.LYRICS_UI_SERVICES -> sharedStringResource(Res.string.credits_lyrics_ui_services)
-            AboutContributorRole.ANDROID_DESIGNER -> sharedStringResource(Res.string.credits_android_designer)
-            AboutContributorRole.WEAROS_DESIGNER -> sharedStringResource(Res.string.credits_wearos_designer)
-        }
+    val roleLabel = contributor.customRoleLabel ?: when (contributor.role) {
+        AboutContributorRole.CREATOR -> sharedStringResource(Res.string.credits_creator)
+        AboutContributorRole.ANDROID_LEAD -> sharedStringResource(Res.string.credits_android_lead)
+        AboutContributorRole.DESKTOP_LEAD -> sharedStringResource(Res.string.credits_desktop_lead)
+        AboutContributorRole.DISCORD_RICH_PRESENCE -> sharedStringResource(Res.string.discord_rpc_title)
+        AboutContributorRole.ANDROID_DEVELOPMENT -> sharedStringResource(Res.string.credits_android_developer)
+        AboutContributorRole.DESKTOP_DEVELOPMENT -> sharedStringResource(Res.string.credits_desktop_developer)
+        AboutContributorRole.MULTIPLATFORM_DEVELOPMENT -> sharedStringResource(Res.string.credits_multiplatform_developer)
+        AboutContributorRole.MACOS_DEVELOPMENT -> sharedStringResource(Res.string.credits_macos_developer)
+        AboutContributorRole.WINDOWS_DEVELOPMENT -> sharedStringResource(Res.string.credits_windows_developer)
+        AboutContributorRole.LYRICS_UI_SERVICES -> sharedStringResource(Res.string.credits_lyrics_ui_services)
+        AboutContributorRole.ANDROID_DESIGNER -> sharedStringResource(Res.string.credits_android_designer)
+        AboutContributorRole.WEAROS_DESIGNER -> sharedStringResource(Res.string.credits_wearos_designer)
+    }
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
@@ -366,12 +328,21 @@ fun AuthorInfoSheet(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     val avatarShape = contributorShape(contributor)
-                    AsyncImage(
-                        url = contributor.avatarUrl,
-                        modifier = Modifier.size(72.dp).clip(avatarShape),
-                        contentDescription = contributor.name,
-                        shape = avatarShape,
-                    )
+                    if (contributor.drawableRes != null) {
+                        Image(
+                            painter = painterResource(contributor.drawableRes),
+                            modifier = Modifier.size(72.dp).clip(avatarShape),
+                            contentDescription = contributor.name,
+                            contentScale = ContentScale.Crop,
+                        )
+                    } else {
+                        AsyncImage(
+                            url = contributor.avatarUrl,
+                            modifier = Modifier.size(72.dp).clip(avatarShape),
+                            contentDescription = contributor.name,
+                            shape = avatarShape,
+                        )
+                    }
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
                             text = contributor.name,
@@ -418,6 +389,36 @@ fun AuthorInfoSheet(
                     }
                 }
 
+                contributor.effectiveTiktokUrl?.let { url ->
+                    Surface(
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .clickable { onOpenUrl(url) },
+                        shape = MaterialTheme.shapes.medium,
+                        color = colorScheme.primaryContainer,
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 12.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center,
+                        ) {
+                            Icon(
+                                imageVector = MetrolistIconsBrand.TikTok,
+                                contentDescription = null,
+                                tint = colorScheme.onPrimaryContainer,
+                                modifier = Modifier.size(20.dp),
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = if (!contributor.tiktokHandle.isNullOrBlank()) "TikTok (@${contributor.tiktokHandle})" else "TikTok",
+                                color = colorScheme.onPrimaryContainer,
+                                fontWeight = FontWeight.Medium,
+                            )
+                        }
+                    }
+                }
+
                 contributor.githubUrl?.let { url ->
                     Surface(
                         modifier =
@@ -448,12 +449,12 @@ fun AuthorInfoSheet(
                     }
                 }
 
-                contributor.sponsorUrl?.let { url ->
+                if (contributor.isSponsorQris) {
                     Surface(
                         modifier =
                             Modifier
                                 .fillMaxWidth()
-                                .clickable { onOpenUrl(url) },
+                                .clickable { onOpenQris() },
                         shape = MaterialTheme.shapes.medium,
                         color = colorScheme.secondaryContainer,
                     ) {
@@ -462,20 +463,50 @@ fun AuthorInfoSheet(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Center,
                         ) {
-                            if (url.contains("buymeacoffee.com", ignoreCase = true)) {
-                                Icon(
-                                    imageVector = MetrolistIconsBrand.BuyMeACoffee,
-                                    contentDescription = null,
-                                    tint = colorScheme.onSecondaryContainer,
-                                    modifier = Modifier.size(20.dp),
-                                )
-                                Spacer(modifier = Modifier.width(8.dp))
-                            }
+                            Icon(
+                                imageVector = MetrolistIcons.Rounded.Favorite,
+                                contentDescription = null,
+                                tint = colorScheme.onSecondaryContainer,
+                                modifier = Modifier.size(20.dp),
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = sharedStringResource(Res.string.sponsor_developer),
+                                text = "Sponsor Pengembangan (QRIS)",
                                 color = colorScheme.onSecondaryContainer,
                                 fontWeight = FontWeight.Medium,
                             )
+                        }
+                    }
+                } else {
+                    contributor.sponsorUrl?.let { url ->
+                        Surface(
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .clickable { onOpenUrl(url) },
+                            shape = MaterialTheme.shapes.medium,
+                            color = colorScheme.secondaryContainer,
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 12.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Center,
+                            ) {
+                                if (url.contains("buymeacoffee.com", ignoreCase = true)) {
+                                    Icon(
+                                        imageVector = MetrolistIconsBrand.BuyMeACoffee,
+                                        contentDescription = null,
+                                        tint = colorScheme.onSecondaryContainer,
+                                        modifier = Modifier.size(20.dp),
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                }
+                                Text(
+                                    text = sharedStringResource(Res.string.sponsor_developer),
+                                    color = colorScheme.onSecondaryContainer,
+                                    fontWeight = FontWeight.Medium,
+                                )
+                            }
                         }
                     }
                 }

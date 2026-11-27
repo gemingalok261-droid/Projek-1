@@ -588,7 +588,8 @@ class BottomSheetState(
         onDismissComplete = null
         changeAnchor(EXPANDED_ANCHOR)
         coroutineScope.launch {
-            animatable.upperBound?.let { animatable.animateTo(it, animationSpec) }
+            val target = animatable.upperBound ?: expandedBound
+            animatable.animateTo(target, animationSpec)
         }
     }
 

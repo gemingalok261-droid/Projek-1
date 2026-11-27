@@ -75,16 +75,20 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release delete v1.4.0 --yes 2>/dev/null || true
-          git tag -d v1.4.0 2>/dev/null || true
-          gh release create v1.4.0 dist/*.apk \
-            --title "Accretion v1.4.0 (Cosmic Accretion Theme & Dynamic Voidbeat Loader)" \
-            --notes "### Accretion v1.4.0 - Cosmic Accretion Theme & Dynamic Voidbeat Loader
+          gh release delete v1.4.1 --yes 2>/dev/null || true
+          git tag -d v1.4.1 2>/dev/null || true
+          gh release create v1.4.1 dist/*.apk \
+            --title "Accretion v1.4.1 (Bug Fixes, Team Info & Player Polish)" \
+            --notes "### Accretion v1.4.1 - Bug Fixes, Team Info & Player Polish
 
-          Pembaruan resmi Accretion:
-          - **Rebrand Resmi Accretion**: Seluruh identitas aplikasi diperbarui dari Projek 1 menjadi **Accretion**.
-          - **Dynamic Voidbeat Accretion Loader**: Indikator loading baru terinspirasi dari disk akresi lubang hitam relativistik dengan ring equalizer spektrum audio 56-bar dan infalling cosmic particles, sepenuhnya adaptif mengikuti warna tema yang aktif.
-          - **Ikon Baru Accretion**: Desain logo akresi kosmik modern dengan event horizon bercahaya, dukungan ikon dinamis Android (Material You Themed Icon), dan varian warna kustom di pengaturan.
-          - **Fluid Micro-Animations**: Animasi interaktif halus dan responsif di seluruh pemutar dan navigasi.
-          - **Full iOS Liquid Glass Player**: Antarmuka pemutar musik transparan ala Apple Music dengan Dynamic Island capsule miniplayer dan bilah navigasi floating dock.
+          Pembaruan resmi Accretion v1.4.1:
+          - **Fix App Icon Switcher Crash**: Memperbaiki masalah crash saat memilih dan mengganti ikon aplikasi di menu Pengaturan dengan resolusi nama komponen dinamis dan error handling yang aman.
+          - **Fix Tombol Antrean (Queue Button)**: Tombol antrean kini responsif dan mendukung fungsi toggle (membuka antrean jika tertutup, menutup antrean jika sedang terbuka) serta fallback animasi yang andal.
+          - **Pembersihan Player Button Bubbles**: Menghapus bingkai/bubble pada tombol pemutar (Previous, Play/Pause, Next) untuk tampilan yang lebih bersih dan elegan ala Apple Music.
+          - **Widget Default Metrolist**: Mengembalikan konfigurasi dan tampilan widget kembali ke standar bawaan Metrolist.
+          - **Pembaruan Info Pengembang & Tim**:
+            - **Pemimpin**: Antigravity (Pengembangan Utama) dengan avatar AI Antigravity.
+            - **Pengembang**: Ray (@rayytampann) dengan tombol profil TikTok dan modal sponsor QRIS.
+            - **Kolaborator**: Ganzvlty (@ganzvlty) dengan peran 'Mencari Bug Dan Mencari Ide' dan tautan TikTok.
+            - **Tautan Komunitas**: Ikon Discord, Telegram, dan GitHub dijadikan hiasan dekoratif (tanpa redirect).
           - **File APK**: Download file **Accretion.apk** (Release) atau **Accretion-debug.apk** langsung di bawah!"
